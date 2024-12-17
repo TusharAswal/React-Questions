@@ -235,9 +235,53 @@ function Modal({ message }) {
 ### useImperativeHandle
 Expose methods/values from a child component to a parent component.
 
-### useMemo vs. useCallback
-- **useMemo**: Memoizes a computed value.
-- **useCallback**: Memoizes a function.
+- Parent component
+```
+const App = () => {
+  const customButtonRef = useRef();
+  const handleFocus = () => {
+    customButtonRef.current.focus();
+  };
+
+  const handleReset = () => {
+    customButtonRef.current.reset();
+  };
+
+  return (
+    <>
+      <CustomButton ref={customButtonRef} />
+      <Button title="Focus on Button" onPress={handleFocus} />
+      <Button title="Reset Button" onPress={handleReset} />
+    </>
+  );
+};
+export default App;
+```
+- Child component
+
+- Child component
+```
+const CustomButton = forwardRef((props, ref) => {
+  const buttonRef = useRef(null);
+  useImperativeHandle(ref, () => ({
+    focus: () => {
+      buttonRef.current && buttonRef.current.focus();
+    },
+    reset: () => {
+      console.log('Resetting the button');
+    }
+  }));
+
+  return (
+    <>
+      <Button ref={buttonRef} title="Click Me" onPress={() => console.log('Button Clicked')} />
+    </>
+  );
+});
+
+export default CustomButton;
+```
+
 
 ---
 
