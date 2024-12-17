@@ -193,7 +193,7 @@ const UserProfile = () => {
 | **When to Use**        | Use when a component's re-rendering is unnecessary because its props haven't changed. | Use when a computation is expensive and should only run when certain dependencies change. | Use when passing functions to child components, and you want to avoid unnecessary re-creations of the function. |
 
 ### React.memo()
-```
+```javascript
 const UserProfile = memo(({ name, age }) => {
   console.log('Rendering UserProfile');
   return (
@@ -205,7 +205,7 @@ const UserProfile = memo(({ name, age }) => {
 });
 ```
 ### useMemo
-```
+```javascript
  const expensiveCalculation = useMemo(() => {
     console.log('Running expensive calculation');
     return count * 2;
@@ -213,7 +213,7 @@ const UserProfile = memo(({ name, age }) => {
 ```
 
 ### useCallback
-```
+```javascript
 const handleClick = useCallback(() => {
     setCount(count + 1);
   }, [count]); // Function re-created only when 'count' changes
@@ -236,7 +236,7 @@ function Modal({ message }) {
 Expose methods/values from a child component to a parent component.
 
 - Parent component
-```
+```javascript
 const App = () => {
   const customButtonRef = useRef();
   const handleFocus = () => {
@@ -258,7 +258,7 @@ const App = () => {
 export default App;
 ```
 - Child component
-```
+```javascript
 const CustomButton = forwardRef((props, ref) => {
   const buttonRef = useRef(null);
   useImperativeHandle(ref, () => ({
@@ -348,7 +348,7 @@ console.log(4);
 
 ### Call,Apply,Bind
 ### Function Context Methods or Function Binding Methods in JavaScript.
-```
+```javascript
 const person = {
   firstName: 'John',
   lastName: 'Doe'
