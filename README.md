@@ -289,6 +289,17 @@ export default CustomButton;
 - **Macrotasks**: `setTimeout`, `setInterval`, DOM events.
 - **Priority**: Microtasks > Macrotasks.
 
+```javascript
+console.log(1); // Printed first, this is a synchronous operation and will be executed immediately in the current call stack.
+
+setTimeout(() => console.log(2), 0);// Printed last as this is a macro task
+
+Promise.resolve().then(() => console.log(3)); // Microtask have higher priority than macrotasks, so it will execute after the current synchronous code
+
+console.log(4); // Printed second, this is a synchronous operation and will be executed immediately in the current call stack.
+
+// Final Output: 1, 4, 3, 2
+```
 ---
 
 ## TypeScript
@@ -329,23 +340,11 @@ const stringValue = identity<string>("Hello, Generics!");
 ```
 
 ---
-
-## Additional Examples
 ### Swapping Variables Without Temp Variable
 ```javascript
 let a = 5, b = 10;
 [a, b] = [b, a];
 ```
-
-### Event Loop Example
-```javascript
-console.log(1);
-setTimeout(() => console.log(2), 0);
-Promise.resolve().then(() => console.log(3));
-console.log(4);
-// Output: 1, 4, 3, 2
-```
-
 ### Call,Apply,Bind (Function Context Methods or Function Binding Methods in JavaScript)
 ```javascript
 const person = {
