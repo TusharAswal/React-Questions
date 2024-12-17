@@ -192,6 +192,33 @@ const UserProfile = () => {
 | **Example**            | ```js<br>const MyComponent = React.memo(function MyComponent(props) {<br> return <Text>{props.name}</Text>;<br>});``` | ```js<br>const memoizedValue = useMemo(() => expensiveComputation(), [dependency]);``` | ```js<br>const memoizedCallback = useCallback(() => {<br> doSomething();<br>}, [dependency]);``` |
 | **When to Use**        | Use when a component's re-rendering is unnecessary because its props haven't changed. | Use when a computation is expensive and should only run when certain dependencies change. | Use when passing functions to child components, and you want to avoid unnecessary re-creations of the function. |
 
+### React.memo()
+```
+const UserProfile = memo(({ name, age }) => {
+  console.log('Rendering UserProfile');
+  return (
+    <View>
+      <Text>Name: {name}</Text>
+      <Text>Age: {age}</Text>
+    </View>
+  );
+});
+```
+### useMemo
+```
+ const expensiveCalculation = useMemo(() => {
+    console.log('Running expensive calculation');
+    return count * 2;
+  }, [count]);
+```
+
+### useCallback
+```
+const handleClick = useCallback(() => {
+    setCount(count + 1);
+  }, [count]); // Function re-created only when 'count' changes
+```
+
 ### React Portals
 Render child components outside their parent in the DOM.
 ```javascript
