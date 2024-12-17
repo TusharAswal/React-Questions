@@ -179,11 +179,19 @@ const UserProfile = () => {
 };
 ```
 
-### React.memo
-Prevents unnecessary re-renders of functional components when their props haven't changed.
-```javascript
-const MemoizedComponent = React.memo(Component);
-```
+### React.memo vs memo vs useCallbacks
+| Feature                | `React.memo`                  | `memo`                        | `useCallback`                 |
+|------------------------|-------------------------------|--------------------------------|--------------------------------|
+| **Purpose**            | Optimizes functional components by memoizing their rendered output to avoid unnecessary re-renders. | Shorthand for `React.memo` when importing React. | Caches a function definition to prevent re-creating it on every render. |
+| **Type**               | Higher-Order Component (HOC)  | Same as `React.memo`           | Hook                           |
+| **Usage**              | Wraps a functional component. | Same as `React.memo`.          | Wraps a callback function.     |
+| **Arguments**          | `React.memo(Component, [compareFunction])` | `memo(Component, [compareFunction])` | `useCallback(callback, [dependencies])` |
+| **Return Value**       | A memoized version of the component. | Same as `React.memo`.          | A memoized version of the callback function. |
+| **Primary Use Case**   | Avoids re-rendering a component when its props haven't changed. | Same as `React.memo`.          | Prevents passing newly created functions to child components on every render. |
+| **Dependencies**       | No dependencies required; checks props shallowly by default. | Same as `React.memo`.          | Relies on dependencies array to determine when to update the callback. |
+| **Example**            | ```js<br>const MyComponent = React.memo(function MyComponent(props) {<br> return <Text>{props.name}</Text>;<br>});``` | ```js<br>import { memo } from 'react';<br>const MyComponent = memo((props) => {<br> return <Text>{props.name}</Text>;<br>});``` | ```js<br>const memoizedCallback = useCallback(() => {<br> doSomething();<br>}, [dependency]);``` |
+| **When to Use**        | Use when components are re-rendering unnecessarily due to unchanged props. | Same as `React.memo`.          | Use when passing callbacks to child components that depend on stable references. |
+
 
 ### React Portals
 Render child components outside their parent in the DOM.
