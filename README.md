@@ -346,6 +346,36 @@ console.log(4);
 // Output: 1, 4, 3, 2
 ```
 
+### Call,Apply,Bind
+### Function Context Methods or Function Binding Methods in JavaScript.
+```
+const person = {
+  firstName: 'John',
+  lastName: 'Doe'
+};
+```
+1. **Call:** The call method allows you to call a function with a specified this value and individual arguments.
+```javascript
+function fullName(city, country) {
+  console.log(`${this.firstName} ${this.lastName}, ${city}, ${country}`);
+}
+fullName.call(person, 'New York', 'USA'); // Output: John Doe, New York, USA
+```
+2. **Apply:** The apply method is similar to call, but it accepts the arguments as an array (or array-like object) instead of individual arguments.
+```javascript
+function fullName(city, country) {
+  console.log(`${this.firstName} ${this.lastName}, ${city}, ${country}`);
+}
+fullName.apply(person, ['New York', 'USA']); // Output: John Doe, New York, USA
+```
+3. **Bind:** The bind method creates a new function that, when called, has its this value set to the provided value and prepends any provided arguments to the argument list.
+```javascript
+function fullName(city, country) {
+  console.log(`${this.firstName} ${this.lastName}, ${city}, ${country}`);
+}
+const boundFullName = fullName.bind(person, 'New York');
+boundFullName('USA'); // Output: John Doe, New York, USA
+```
 ---
 
 This README consolidates foundational and advanced JavaScript and React concepts for developers.
