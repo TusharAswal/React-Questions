@@ -143,13 +143,40 @@ export default EnhancedComponent;
 
 ### Context API
 Used to share global state without prop drilling.
+- Create a context
 ```javascript
 const MyContext = React.createContext();
-<MyContext.Provider value={/* some value */}>
+```
+- Wrap the children component in newly created provider
+```javascript
+export const AppProvider = ({ children }) => {
+  const [user, setUser] = useState({ name: 'John Doe', age: 25 });
+  return (
+    <MyContext.Provider value={{ user, setUser }}>
     {/* children */}
-</MyContext.Provider>
+    </MyContext.Provider>
+  );
+};
+```
+- Use the new context values inside the children
+```javascript
+const App = () => {
+  return (
+    <AppProvider>
+        <UserProfile />
+    </AppProvider>
+  );
+};
 
-const value = useContext(MyContext);
+const UserProfile = () => {
+  const { user, setUser } = useContext(AppContext);
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>Name: {user.name}</Text>
+      <Text style={styles.text}>Age: {user.age}</Text>
+    </View>
+  );
+};
 ```
 
 ### React.memo
