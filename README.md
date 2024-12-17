@@ -126,12 +126,19 @@ function outer() {
 ## React Concepts
 ### Higher-Order Component (HOC)
 An advanced technique for reusing component logic.
+- Creating a HOC
 ```javascript
 const withEnhancement = (WrappedComponent) => {
     return (props) => {
         return <WrappedComponent {...props} newProp="Enhanced!" />;
     };
 };
+```
+- Using that HOC
+```
+/* MyComponent is a child component that is being wrapped in HOC created and then being assigned to a new variable EnhancedComponent that can then be used to display UI */
+const EnhancedComponent = withEnhancement(MyComponent);
+export default EnhancedComponent;
 ```
 
 ### Context API
