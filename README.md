@@ -258,8 +258,6 @@ const App = () => {
 export default App;
 ```
 - Child component
-
-- Child component
 ```
 const CustomButton = forwardRef((props, ref) => {
   const buttonRef = useRef(null);
