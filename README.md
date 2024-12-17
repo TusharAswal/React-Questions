@@ -111,7 +111,14 @@ function outer() {
     };
 }
 ```
-
+**Increased Memory Usage**:
+- A closure retains references to variables in its lexical scope (even after the function execution completes).
+- If these variables are large objects or arrays, they stay in memory as long as the closure exists, which could cause memory leaks.
+**Memory Leaks**:
+- Closures can unintentionally prevent variables from being garbage collected because of retained references, leading to memory leaks.
+**Debugging Complexity**:
+- Variables can come from multiple levels of the scope chain
+- When closures are deeply nested, understanding where a variable comes from can be difficult.
 ---
 
 ## React Concepts
