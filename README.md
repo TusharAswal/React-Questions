@@ -346,8 +346,7 @@ console.log(4);
 // Output: 1, 4, 3, 2
 ```
 
-### Call,Apply,Bind
-### Function Context Methods or Function Binding Methods in JavaScript.
+### Call,Apply,Bind (Function Context Methods or Function Binding Methods in JavaScript)
 ```javascript
 const person = {
   firstName: 'John',
