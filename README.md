@@ -135,7 +135,7 @@ const withEnhancement = (WrappedComponent) => {
 };
 ```
 - Using that HOC
-```
+```javascript
 /* MyComponent is a child component that is being wrapped in HOC created and then being assigned to a new variable EnhancedComponent that can then be used to display UI */
 const EnhancedComponent = withEnhancement(MyComponent);
 export default EnhancedComponent;
