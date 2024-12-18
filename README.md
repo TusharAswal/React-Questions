@@ -90,13 +90,27 @@ InteractionManager.runAfterInteractions(() => {
 ## Shallow Copy vs. Deep Copy
 ### Shallow Copy
 Copies only the first level of properties. Nested objects/arrays still reference the original structure.
-
+- Using Spread Operator (...)
+```javascript
+const obj = { a: 1, b: { c: 2 } };
+const shallowCopy = { ...obj };
+```
+- Using Object.assign
+```javascript
+const obj = { a: 1, b: { c: 2 } };
+const shallowCopy = Object.assign({}, obj);
+```
 ### Deep Copy
 Creates a completely independent copy of the original object/array.
+- Using structuredClone (Modern and Recommended)
+```javascript
+const obj = { a: 1, b: { c: 2 } };
+const deepCopy = structuredClone(obj);
+```
+- Using JSON.stringify and JSON.parse
 ```javascript
 const deepCopy = JSON.parse(JSON.stringify(original));
 ```
-
 ---
 
 ## JavaScript Closures
