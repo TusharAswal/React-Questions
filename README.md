@@ -331,6 +331,7 @@ const axiosInstance = axios.create({
 ---
 
 ## Generic Function Example (TypeScript)
+In TypeScript, generic functions allow you to write functions that can work with any type, while still enforcing type safety. Generics are a powerful feature to make your code reusable and flexible.
 ```typescript
 function identity<T>(value: T): T {
     return value;
