@@ -389,6 +389,39 @@ function fullName(city, country) {
 const boundFullName = fullName.bind(person, 'New York');
 boundFullName('USA'); // Output: John Doe, New York, USA
 ```
+
+## Generator Functions
+Generator functions are a special type of function in JavaScript that allows pausing and resuming its execution during runtime.
+- next() is used to pass down value for yeild in an generator function.
+- yield is used to pause a function waiting for a value from next()
+
+```javascript
+function* generatorExample() {
+/*
+Step 1.1:
+Pauses here first waiting for a value for first yeild
+*/
+  const firstValue = yield 'First yield paused'; 
+/*
+Step 2.1:
+Pauses in above, but because value is now present in next() its successfully executed and console is printed
+*/
+  console.log('First value received:', firstValue);
+  return 'Generator complete!';
+}
+
+const gen = generatorExample();
+/* Step 1:
+Calls a generator function without any value
+returns { value: 'First yield paused', done: false }
+*/
+console.log(gen.next()) 
+/* Step 2:
+This time a value is passed to the generator function
+*/
+console.log(gen.next('Value for first yield').value); 
+
+```
 ---
 
 This README consolidates foundational and advanced JavaScript and React concepts for developers.
