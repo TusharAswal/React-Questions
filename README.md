@@ -420,8 +420,15 @@ console.log(gen.next())
 This time a value is passed to the generator function
 */
 console.log(gen.next('Value for first yield').value); 
-
 ```
+### Increase performance in RN
+- Use FlatList or SectionList for Long Lists
+- Memoization Using React.memo, useMemo, and useCallback
+- Avoid Inline Functions and Objects in JSX
+- Optimize Images using react-native-fast-image
+- Use InteractionManager for Heavy Tasks
+- Use Lazy Loading and Code Splitting
+- Use Hermes Engine
 ---
 
 This README consolidates foundational and advanced JavaScript and React concepts for developers.
