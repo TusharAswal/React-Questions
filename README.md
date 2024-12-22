@@ -429,6 +429,90 @@ console.log(gen.next('Value for first yield').value);
 - Use InteractionManager for Heavy Tasks
 - Use Lazy Loading and Code Splitting
 - Use Hermes Engine
+
+### Key Testing Types (Jest)
+- Unit Testing
+```javascript
+// utils/calculateSum.js
+export const calculateSum = (a, b) => a + b;
+
+// utils/calculateSum.test.js
+import { calculateSum } from './calculateSum';
+
+test('calculateSum adds numbers correctly', () => {
+  expect(calculateSum(2, 3)).toBe(5);
+});
+```
+
+- Component Testing
+```javascript
+// components/Greeting.js
+import React from 'react';
+import { Text, View } from 'react-native';
+
+const Greeting = ({ name }) => (
+  <View>
+    <Text>Hello, {name}!</Text>
+  </View>
+);
+
+export default Greeting;
+```
+
+```javascript
+// components/Greeting.test.js
+import React from 'react';
+import { render } from '@testing-library/react-native';
+import Greeting from './Greeting';
+
+test('renders Greeting component with name', () => {
+  const { getByText } = render(<Greeting name="John" />);
+  expect(getByText('Hello, John!')).toBeTruthy();
+});
+```
+
+- Snapshot Testing
+```javascript
+// components/Button.js
+import React from 'react';
+import { Text, TouchableOpacity } from 'react-native';
+
+const Button = ({ label, onPress }) => (
+  <TouchableOpacity onPress={onPress}>
+    <Text>{label}</Text>
+  </TouchableOpacity>
+);
+
+export default Button;
+```
+```javascript
+// components/Button.test.js
+import React from 'react';
+import renderer from 'react-test-renderer';
+import Button from './Button';
+
+test('Button component snapshot', () => {
+  const tree = renderer.create(<Button label="Click me" onPress={() => {}} />).toJSON();
+  expect(tree).toMatchSnapshot();
+});
+```
+
+### Mocking Functions and API Calls
+```javascript
+// components/UserDetails.test.js
+import React from 'react';
+import { render, waitFor } from '@testing-library/react-native';
+import UserDetails from './UserDetails';
+
+jest.mock('./UserDetails', () => ({
+  fetchUser: jest.fn(() => Promise.resolve({ name: 'John Doe' })),
+}));
+
+test('renders user details after fetching data', async () => {
+  const { getByText } = render(<UserDetails />);
+  await waitFor(() => expect(getByText('John Doe')).toBeTruthy());
+});
+```
 ---
 
 This README consolidates foundational and advanced JavaScript and React concepts for developers.
