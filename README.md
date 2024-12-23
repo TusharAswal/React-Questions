@@ -298,10 +298,11 @@ export default CustomButton;
 ---
 
 ## Event Loop and Task Queue
-### Microtasks vs. Macrotasks
+### Synchronous tasks vs. Microtasks vs. Macrotasks
+- **Synchronous**: All loops like while,do while and for are synchronous and are executed immediately.
 - **Microtasks**: Promises, MutationObserver callbacks.
 - **Macrotasks**: `setTimeout`, `setInterval`, DOM events.
-- **Priority**: Microtasks > Macrotasks.
+- **Priority**: Synchronous > Microtasks > Macrotasks.
 
 ```javascript
 console.log(1); // Printed first, this is a synchronous operation and will be executed immediately in the current call stack.
