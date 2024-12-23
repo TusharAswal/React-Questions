@@ -514,6 +514,25 @@ test('renders user details after fetching data', async () => {
   await waitFor(() => expect(getByText('John Doe')).toBeTruthy());
 });
 ```
+# Copying by refrence
+- Here the value of c changes if changes are made to d or c as they share same refrence in memory
+```javascript
+let c = { greeting: 'Hey!' };
+let d;
+d = c; // Both c and d point to the same object in memory
+c.greeting = 'Hello';
+console.log(d.greeting); // Outputs: 'Hello'
+```
+- If object is copied using {...} or rest operator only the top most values are copied independently all the nested values are copied by refrence
+```javascript
+let c = { greeting: 'Hey!', details: { age: 25 } };
+let d;
+d = { ...c }; // Shallow copy of c
+c.greeting = 'Hello';
+c.details.age = 30; // Changes the nested object
+console.log(d.greeting); // Outputs: 'Hey!' (independent copy of top-level property)
+console.log(d.details.age); // Outputs: 30 (nested object is still shared by reference)
+```
 ---
 
 This README consolidates foundational and advanced JavaScript and React concepts for developers.
