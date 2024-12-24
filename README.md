@@ -432,7 +432,7 @@ console.log(gen.next('Value for first yield').value);
 - Use Hermes Engine
 
 ### Key Testing Types (Jest)
-- Unit Testing
+- Unit testing is a software testing technique that involves testing individual components or functions of an application in isolation to ensure they behave as expected.
 ```javascript
 // utils/calculateSum.js
 export const calculateSum = (a, b) => a + b;
@@ -445,7 +445,7 @@ test('calculateSum adds numbers correctly', () => {
 });
 ```
 
-- Component Testing
+- Component testing involves testing individual components of a user interface (UI) in isolation to ensure they function correctly.
 ```javascript
 // components/Greeting.js
 import React from 'react';
@@ -472,7 +472,7 @@ test('renders Greeting component with name', () => {
 });
 ```
 
-- Snapshot Testing
+- Snapshot testing is a type of testing used to ensure that a component's UI does not change unexpectedly.
 ```javascript
 // components/Button.js
 import React from 'react';
@@ -532,6 +532,52 @@ c.greeting = 'Hello';
 c.details.age = 30; // Changes the nested object
 console.log(d.greeting); // Outputs: 'Hey!' (independent copy of top-level property)
 console.log(d.details.age); // Outputs: 30 (nested object is still shared by reference)
+```
+
+### forEach vs Map
+| **Feature**           | **`forEach`**                            | **`map`**                                |
+|-----------------------|-----------------------------------------|-----------------------------------------|
+| **Purpose**           | For side effects (e.g., logging)       | To transform and create a new array     |
+| **Return Value**      | `undefined`                            | A new array                             |
+| **Mutability**        | Can modify the original array or external state | Does not modify the original array      |
+| **Chaining**          | Not chainable                          | Chainable                               |
+| **Use Case**          | Performing an action per element       | Transforming an array                   |
+
+## Object.assign() vs. Object.create()
+| **Feature**              | **`Object.assign()`**                       | **`Object.create()`**                      |
+|--------------------------|--------------------------------------------|-------------------------------------------|
+| **Purpose**              | Copies properties from source to target   | Creates a new object with a specific prototype |
+| **Mutates Data**         | **Yes** (modifies the target object)       | **No** (creates a new object)             |
+| **Prototype Inheritance**| Does not handle prototype inheritance      | Creates an object with inherited prototype |
+| **Return Value**         | The modified target object                 | A new object                              |
+
+### What is an Error Boundary in React?
+Error Boundaries are React components that catch JavaScript errors in their child component tree, log those errors, and display a fallback UI instead of crashing the entire application. They help prevent the app from breaking when an error occurs in a specific part of the UI.
+Key Methods in Error Boundaries
+static getDerivedStateFromError(error)
+Updates the state so the next render will show a fallback UI.
+componentDidCatch(error, info)
+Logs error information.
+
+### Basic Sum Function in TypeScript
+```javascript
+function sum(a: string | number, b: string | number): number {
+  // Convert both parameters to numbers if they are strings
+  const num1 = typeof a === 'string' ? parseFloat(a) : a;
+  const num2 = typeof b === 'string' ? parseFloat(b) : b;
+  return num1 + num2;
+}
+```
+
+# Generic functions typescript
+```javascript
+function identity<T>(arg: T): T {
+  return arg;
+}
+const result1 = identity(10);    // T inferred as number
+const result2 = identity('Hello'); // T inferred as string
+console.log(result1); // 10
+console.log(result2); // 'Hello'
 ```
 ---
 
