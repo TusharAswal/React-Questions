@@ -579,6 +579,30 @@ const result2 = identity('Hello'); // T inferred as string
 console.log(result1); // 10
 console.log(result2); // 'Hello'
 ```
+### Custom hooks
+Custom hooks always start with the prefix use, and they can use other built-in hooks like useState, useEffect, useContext, etc., within them.
+- Code Reusability: Avoid duplicating logic across components by centralizing common functionality.
+- Improved Readability: Keeps components cleaner and easier to read by moving complex logic out of the component.
+- Separation of Concerns: Better organizes code by separating stateful logic from component rendering.
+- Testing: Custom hooks make it easier to test logic independently of the components.
+
+### Avoid un-necessary re-renders in custom hooks
+- Use useMemo for Memoizing Values
+- Use useCallback for Memoizing Functions
+
+### **`useEffect` vs. `useLayoutEffect`**
+
+| Feature/Aspect            | **`useEffect`**                                                                 | **`useLayoutEffect`**                                                                                      |
+|----------------------------|--------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| **Execution Timing**       | Runs **asynchronously** after the browser has painted the UI.                  | Runs **synchronously** after all DOM mutations but **before** the browser paints the UI.                  |
+| **Use Case**               | Best for non-visual side effects like API calls, logging, or setting up subscriptions. | Best for side effects that affect the **layout or appearance** of the DOM (e.g., measuring DOM nodes or adjusting styles). |
+| **Impact on UI**           | Does **not block the rendering** of the UI.                                    | Can **block rendering** until the side effect completes, as it runs synchronously.                        |
+| **Performance**            | More efficient for most cases as it doesn’t delay rendering.                  | May hurt performance if used unnecessarily because it delays the paint phase.                             |
+| **React Hook Type**        | Runs after the DOM is updated and the browser has completed rendering.         | Runs **before** the browser renders the next frame, ensuring DOM consistency before user sees the changes. |
+| **Typical Usage**          | - Fetching data.<br>- Subscribing/unsubscribing to events.<br>- Logging.        | - Measuring DOM size/position.<br>- Adding inline styles based on measurements.<br>- Synchronizing animations. |
+| **Example Scenario**       | Use for fetching data from an API.                                             | Use for recalculating layout or synchronizing animations.                                                 |
+
+
 ---
 
 This README consolidates foundational and advanced JavaScript and React concepts for developers.
