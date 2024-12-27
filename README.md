@@ -607,7 +607,65 @@ Custom hooks always start with the prefix use, and they can use other built-in h
 | **Typical Usage**          | - Fetching data.<br>- Subscribing/unsubscribing to events.<br>- Logging.        | - Measuring DOM size/position.<br>- Adding inline styles based on measurements.<br>- Synchronizing animations. |
 | **Example Scenario**       | Use for fetching data from an API.                                             | Use for recalculating layout or synchronizing animations.                                                 |
 
+### Running test cases with JEST
+- jest
+Runs all the test files in your project. By default, Jest looks for files with .test.js or .spec.js extensions in the __tests__ folder or files with these extensions anywhere in your project.
 
+- jest --watch
+Watches your files for changes and automatically reruns the tests when a file is saved. Useful during development to get instant feedback on your tests.
+
+- jest --onlyFailures
+Reruns only the tests that failed in the previous run. Useful for quickly debugging failures after running the full test suite.
+
+- jest --coverage
+Generates a test coverage report, showing which parts of your code are covered by tests. Outputs detailed information about the lines, functions, and branches covered.
+
+- jest --updateSnapshot
+Updates Jest snapshots for tests that use snapshot testing. Use this when your component output changes and you’re confident the new output is correct.
+
+### Hermes engine
+- Improves App Startup Time
+Hermes reduces app startup times by using an optimized bytecode format, which allows the JavaScript to load and execute faster compared to traditional JavaScript engines like V8 or JavaScriptCore.
+
+- Reduces Memory Usage
+It uses an optimized memory management system, which significantly lowers memory consumption, making it ideal for apps running on low-end devices.
+
+- Ahead-of-Time (AOT) Compilation
+JavaScript code is compiled into bytecode before the app is bundled. This eliminates the need for Just-in-Time (JIT) compilation at runtime, reducing overhead.
+
+- Smaller JavaScript Bundle Size
+Hermes compiles JavaScript code into an efficient bytecode format that is smaller than raw JavaScript, reducing the overall size of the app package.
+
+- Optimized Garbage Collection
+Hermes uses a memory-efficient garbage collection strategy designed for React Native apps, which improves runtime performance and responsiveness.
+
+- Cross-Platform Support
+Hermes is available for both Android and iOS platforms, making it a viable choice for improving performance across all devices.
+
+### Redux working
+- Dispatch Action
+```javascript
+const dispatch=useDispatch()
+dispatch({ type: 'INCREMENT', payload: 1 });
+```
+- Action Type: The dispatched action contains a type (required) and a payload (optional). The type determines the intent of the action.
+```javascript
+{ type: 'INCREMENT', payload: 1 }
+```
+- Middleware:Middleware (like Thunk or Logger) intercepts actions before they reach the reducer.
+- Reducer:The reducer receives the current state and the action, and it returns the updated state based on the action type.
+```javascript
+const counterReducer = (state = { count: 0 }, action) => {
+  switch (action.type) {
+    case 'INCREMENT':
+      return { ...state, count: state.count + action.payload };
+    default:
+      return state;
+  }
+};
+```
+- Update Store: The store updates its state with the new state returned by the reducer.
+- Re-render Components
 ---
 
 This README consolidates foundational and advanced JavaScript and React concepts for developers.
