@@ -303,7 +303,7 @@ The Event Loop is a mechanism that enables JavaScript to handle asynchronous tas
 - The Event Loop monitors the Call Stack and the Task Queue (or Microtask Queue) to determine what should run next.
 - It continuously checks if the Call Stack is empty, and if so, it pushes tasks from the Task Queue or Microtask Queue onto the Call Stack for execution.
   
-### Synchronous tasks vs. Microtasks vs. Macrotasks
+### Synchronous(Callstack) tasks vs. Microtasks vs. Macrotasks
 - **Synchronous**: All loops like while,do while and for are synchronous and are executed immediately.
 - **Microtasks**: Promises, MutationObserver callbacks.
 - **Macrotasks**: `setTimeout`, `setInterval`, DOM events.
