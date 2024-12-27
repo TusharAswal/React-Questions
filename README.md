@@ -666,6 +666,41 @@ const counterReducer = (state = { count: 0 }, action) => {
 ```
 - Update Store: The store updates its state with the new state returned by the reducer.
 - Re-render Components
+
+  ### Render Hijacking HOC
+Render hijacking occurs when a component's rendering logic is intercepted, allowing you to modify the component's behavior without directly modifying the component itself.
+
+```javascript
+const Greeting = ({ name }) => <h1>Hello, {name}!</h1>;
+// HOC to manipulate props and hijack render
+const withGreetingManipulation = (WrappedComponent) => {
+  return (props) => {
+    // Manipulating the props before passing them down
+    const newProps = {
+      ...props,
+      name: props.name ? props.name.toUpperCase() : 'Anonymous', // Hijack the 'name' prop and modify it
+    };
+    
+    // Render hijacking by modifying the component's rendering logic
+    return <WrappedComponent {...newProps} />;
+  };
+};
+
+// Enhancing the Greeting component with the HOC
+const EnhancedGreeting = withGreetingManipulation(Greeting);
+
+// Using the enhanced component
+const App = () => {
+  return <EnhancedGreeting name="Lydia" />;
+};
+
+export default App;
+```
+### useReducer
+useReducer is a React hook used for managing state in components, especially when the state logic is more complex or needs to be updated based on multiple actions.
+```javascript
+const [state, dispatch] = useReducer(reducer, initialState);
+```
 ---
 
 This README consolidates foundational and advanced JavaScript and React concepts for developers.
