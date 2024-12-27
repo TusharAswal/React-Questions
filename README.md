@@ -702,6 +702,21 @@ useReducer is a React hook used for managing state in components, especially whe
 const [state, dispatch] = useReducer(reducer, initialState);
 ```
 
+# Features Comparison
+
+| Feature                          | Axios                                  | Fetch                                   |
+|-----------------------------------|----------------------------------------|-----------------------------------------|
+| **Browser Support**               | Works in all modern browsers, including Internet Explorer | Works in modern browsers, requires a polyfill for IE |
+| **Request Interceptors**          | Yes                                    | No                                      |
+| **Response Interceptors**         | Yes                                    | No                                      |
+| **Automatic JSON Parsing**        | Yes                                    | No, needs `.json()` to parse           |
+| **Timeouts**                       | Yes, built-in timeout support         | No, needs manual implementation        |
+| **Error Handling**                | Rejects on HTTP error codes           | Rejects on network errors, need manual check for HTTP errors |
+| **File Uploads**                  | Native support for `FormData`         | Manual implementation                  |
+| **Request Cancellation**          | Yes, via `CancelToken`                 | Yes, via `AbortController`             |
+| **API**                           | Can be used with `POST`, `GET`, etc.   | Can be used with `POST`, `GET`, etc.    |
+
+
 ### IBM
 - Maximum storage that html5 provides is **5 MB**
 - **<mark>** is used to hightlight text in HTML
