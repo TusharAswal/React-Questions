@@ -519,6 +519,22 @@ test('renders user details after fetching data', async () => {
   await waitFor(() => expect(getByText('John Doe')).toBeTruthy());
 });
 ```
+### Running test cases with JEST
+- **jest**
+Runs all the test files in your project. By default, Jest looks for files with .test.js or .spec.js extensions in the __tests__ folder or files with these extensions anywhere in your project.
+
+- **jest --watch**
+Watches your files for changes and automatically reruns the tests when a file is saved. Useful during development to get instant feedback on your tests.
+
+- **jest --onlyFailures**
+Reruns only the tests that failed in the previous run. Useful for quickly debugging failures after running the full test suite.
+
+- **jest --coverage**
+Generates a test coverage report, showing which parts of your code are covered by tests. Outputs detailed information about the lines, functions, and branches covered.
+
+- **jest --updateSnapshot**
+Updates Jest snapshots for tests that use snapshot testing. Use this when your component output changes and you’re confident the new output is correct.
+
 # Copying by refrence
 - Here the value of c changes if changes are made to d or c as they share same refrence in memory
 ```javascript
@@ -606,22 +622,6 @@ Custom hooks always start with the prefix use, and they can use other built-in h
 | **React Hook Type**        | Runs after the DOM is updated and the browser has completed rendering.         | Runs **before** the browser renders the next frame, ensuring DOM consistency before user sees the changes. |
 | **Typical Usage**          | - Fetching data.<br>- Subscribing/unsubscribing to events.<br>- Logging.        | - Measuring DOM size/position.<br>- Adding inline styles based on measurements.<br>- Synchronizing animations. |
 | **Example Scenario**       | Use for fetching data from an API.                                             | Use for recalculating layout or synchronizing animations.                                                 |
-
-### Running test cases with JEST
-- jest
-Runs all the test files in your project. By default, Jest looks for files with .test.js or .spec.js extensions in the __tests__ folder or files with these extensions anywhere in your project.
-
-- jest --watch
-Watches your files for changes and automatically reruns the tests when a file is saved. Useful during development to get instant feedback on your tests.
-
-- jest --onlyFailures
-Reruns only the tests that failed in the previous run. Useful for quickly debugging failures after running the full test suite.
-
-- jest --coverage
-Generates a test coverage report, showing which parts of your code are covered by tests. Outputs detailed information about the lines, functions, and branches covered.
-
-- jest --updateSnapshot
-Updates Jest snapshots for tests that use snapshot testing. Use this when your component output changes and you’re confident the new output is correct.
 
 ### Hermes engine
 - Improves App Startup Time
