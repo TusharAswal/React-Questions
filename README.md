@@ -183,7 +183,7 @@ const App = () => {
 };
 
 const UserProfile = () => {
-  const { user, setUser } = useContext(AppContext);
+  const { user, setUser } = useContext(MyContext);
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Name: {user.name}</Text>
