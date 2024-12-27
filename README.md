@@ -701,6 +701,16 @@ useReducer is a React hook used for managing state in components, especially whe
 ```javascript
 const [state, dispatch] = useReducer(reducer, initialState);
 ```
+
+### IBM
+- Maximum storage that html5 provides is **5 MB**
+- **<mark>** is used to hightlight text in HTML
+- In a form, **event.preventDefault()** is commonly used to prevent the form from submitting when the user clicks the submit button or presses Enter.
+- **<span>** is not a semantic element
+- The correct CSS selector that selects all elements of type E that have the attribute attr that ends with a given value is **E[attr$="value"]**
+- The function that converts an element's color to a shade of gray for use by the filter property in CSS is **grayscale()**
+- Which of the following media query describe output style portrait if height is greater than or equal to width, landscape if the opposite? **orientation**
+- The correct syntax to redirect a URL using JavaScript is **window.location.href = 'https://www.example.com';**
 ---
 
 This README consolidates foundational and advanced JavaScript and React concepts for developers.
