@@ -84,7 +84,28 @@ InteractionManager.runAfterInteractions(() => {
 - **Hoisting**:
   - `var`: Initialized to `undefined` during hoisting.
   - `let` and `const`: Uninitialized and throw a `ReferenceError` if accessed before declaration.
+```javascript
+function example() {
+  var x = 10; // Function-scoped
+  let y = 20; // Block-scoped
+  const z = 30; // Block-scoped
 
+  if (true) {
+    var a = 40; // Function-scoped
+    let b = 50; // Block-scoped
+    const c = 60; // Block-scoped
+    console.log(a, b, c); // 40, 50, 60
+  }
+
+  console.log(a); // 40 (Accessible because `var` is function-scoped)
+  // console.log(b); // ReferenceError: b is not defined (Block-scoped)
+  // console.log(c); // ReferenceError: c is not defined (Block-scoped)
+}
+
+// Variables declared inside the function are NOT accessible outside:
+example();
+// console.log(x, y, z); // ReferenceError: x is not defined
+```
 ---
 
 ## Shallow Copy vs. Deep Copy
