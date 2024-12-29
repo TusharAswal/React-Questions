@@ -809,6 +809,39 @@ const person = JSON.parse('{"name": "Hank", "age": 20}');
 console.log(person.name); // Output: Hank
 console.log(person.age);  // Output: 20
 ```
+### Set v/s Weak Set
+- ***Set***:
+    A Set ensures that all values are unique. If you try to add a duplicate value, it will be ignored.
+```javascript
+const mySet = new Set();
+mySet.add(1);
+mySet.add(2);
+console.log(mySet.has(1)); // true
+mySet.delete(2);
+console.log(mySet.size); // 1
+mySet.clear(); //delete all items
+```
+- ***Weak set***:A WeakSet can only store objects (not primitive values).
+```javascript
+const weakSet = new WeakSet();
+const obj1 = { name: "Bob" };
+const obj2 = { name: "Eve" };
+weakSet.add(obj1);
+console.log(weakSet.has(obj1)); // true
+weakSet.delete(obj1);
+console.log(weakSet.has(obj1)); // false
+```
+
+### Set vs Array
+- ***Set***:
+1. A Set only stores unique values. Duplicate values are automatically ignored.
+2. Use the size property to get the number of elements in a Set.
+3. No concept of index; you cannot access elements by index in a Set.
+- ***Array***:
+1. An Array can store duplicate values.
+2. Use the length property to get the number of elements in an Array.
+3. Elements can be accessed by their index (e.g., arr[0]).
+
 
 ### IBM
 - Maximum storage that html5 provides is **5 MB**
