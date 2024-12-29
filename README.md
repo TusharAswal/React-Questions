@@ -737,6 +737,78 @@ const [state, dispatch] = useReducer(reducer, initialState);
 | **Request Cancellation**          | Yes, via `CancelToken`                 | Yes, via `AbortController`             |
 | **API**                           | Can be used with `POST`, `GET`, etc.   | Can be used with `POST`, `GET`, etc.    |
 
+### Creating object in JS
+- Using Object Literal
+```javascript
+const person = {
+  name: "John",
+  age: 30,
+  greet: function () {
+    console.log(`Hello, my name is ${this.name}`);
+  }
+};
+console.log(person.name); // Output: John
+person.greet();           // Output: Hello, my name is John
+```
+-  Using Object.create()
+```javascript
+const prototypeObject = {
+  greet: function () {
+    console.log(`Hello, my name is ${this.name}`);
+  }
+};
+const person = Object.create(prototypeObject);
+person.name = "Jane";
+person.age = 25;
+person.greet(); // Output: Hello, my name is Jane
+```
+- Using a Constructor Function
+```javascript
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+  this.greet = function () {
+    console.log(`Hello, my name is ${this.name}`);
+  };
+}
+const person1 = new Person("Alice", 28);
+const person2 = new Person("Bob", 35);
+person1.greet(); // Output: Hello, my name is Alice
+person2.greet(); // Output: Hello, my name is Bob
+```
+- Using ES6 Classes
+```javascript
+class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+  greet() {
+    console.log(`Hello, my name is ${this.name}`);
+  }
+}
+const person1 = new Person("Charlie", 40);
+const person2 = new Person("Diana", 32);
+person1.greet(); // Output: Hello, my name is Charlie
+person2.greet(); // Output: Hello, my name is Diana
+```
+- Using Object Constructor
+```javascript
+const person = new Object();
+person.name = "Eve";
+person.age = 22;
+person.greet = function () {
+  console.log(`Hello, my name is ${this.name}`);
+};
+console.log(person.name); // Output: Eve
+person.greet();           // Output: Hello, my name is Eve
+```
+- Using JSON.parse
+```javascript
+const person = JSON.parse('{"name": "Hank", "age": 20}');
+console.log(person.name); // Output: Hank
+console.log(person.age);  // Output: 20
+```
 
 ### IBM
 - Maximum storage that html5 provides is **5 MB**
