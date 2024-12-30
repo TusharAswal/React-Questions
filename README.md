@@ -852,6 +852,10 @@ console.log(weakSet.has(obj1)); // false
 - The function that converts an element's color to a shade of gray for use by the filter property in CSS is **grayscale()**
 - Which of the following media query describe output style portrait if height is greater than or equal to width, landscape if the opposite? **orientation**
 - The correct syntax to redirect a URL using JavaScript is **window.location.href = 'https://www.example.com';**
+
+### Resource Links
+https://www.interviewbit.com/javascript-interview-questions/#different-methods-can-you-make-an-object
+https://github.com/lydiahallie/javascript-questions
 ---
 
 This README consolidates foundational and advanced JavaScript and React concepts for developers.
