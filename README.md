@@ -842,6 +842,16 @@ console.log(weakSet.has(obj1)); // false
 2. Use the length property to get the number of elements in an Array.
 3. Elements can be accessed by their index (e.g., arr[0]).
 
+| **Feature**       | **Rest Operator (`...`)**                    | **Spread Operator (`...`)**                 |
+|--------------------|---------------------------------------------|---------------------------------------------|
+| **Purpose**        | Combines items into a single collection.    | Expands items into individual elements.     |
+| **Use Case**       | Function parameters, destructuring.         | Function calls, array/object literals.      |
+| **Primary Context**| `function fn(...args) {}`                   | `const newArr = [...oldArr];`               |
+| **Key Behavior**   | Gathers remaining values into an array or object. | Spreads values from arrays or objects.      |
+| **Example: Function Parameters** | `function sum(...nums) {}`             | `Math.max(...nums);`                        |
+| **Example: Array Destructuring** | `[first, ...rest] = [1, 2, 3];`        | `const combined = [...arr1, ...arr2];`      |
+| **Example: Object** | Not applicable.                             | `const clone = { ...original };`            |
+
 
 ### IBM
 - Maximum storage that html5 provides is **5 MB**
