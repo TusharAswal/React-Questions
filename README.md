@@ -853,6 +853,7 @@ console.log(weakSet.has(obj1)); // false
 | **Example: Object** | Not applicable.                             | `const clone = { ...original };`            |
 
 ### Primitive Types: Pass-by-Value
+When you pass a primitive type (e.g., string, number, boolean, etc.) to a function, JavaScript passes a copy of the value. Changes made to the parameter inside the function do not affect the original variable.
 ```javascript
 let x = 10;
 function modifyValue(y) {
@@ -862,6 +863,9 @@ modifyValue(x);
 console.log(x); // Output: 10 (x is unchanged)
 ```
 ### Non-Primitive Types: Pass-by-Reference-Like Behavior
+For objects, arrays, and functions (non-primitive types), JavaScript passes a reference to the value in memory. This means the function gets access to the same object in memory, so modifying the object inside the function affects the original object.
+However, if you reassign the parameter to a new object, the original object remains unchanged because the parameter now points to a new reference.
+
 ```javascript
 let obj = { name: "John" };
 function modifyObject(o) {
