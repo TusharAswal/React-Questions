@@ -852,7 +852,24 @@ console.log(weakSet.has(obj1)); // false
 | **Example: Array Destructuring** | `[first, ...rest] = [1, 2, 3];`        | `const combined = [...arr1, ...arr2];`      |
 | **Example: Object** | Not applicable.                             | `const clone = { ...original };`            |
 
-
+### Primitive Types: Pass-by-Value
+```javascript
+let x = 10;
+function modifyValue(y) {
+  y = 20; // This changes the copy of x, not the original x
+}
+modifyValue(x);
+console.log(x); // Output: 10 (x is unchanged)
+```
+### Non-Primitive Types: Pass-by-Reference-Like Behavior
+```javascript
+let obj = { name: "John" };
+function modifyObject(o) {
+  o.name = "Doe"; // Modifies the original object
+}
+modifyObject(obj);
+console.log(obj.name); // Output: "Doe" (the original object is changed)
+```
 ### IBM
 - Maximum storage that html5 provides is **5 MB**
 - **<mark>** is used to hightlight text in HTML
