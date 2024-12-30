@@ -55,7 +55,7 @@ Waits for all promises to resolve or for any to reject.
 Waits for all promises to settle (resolve or reject) and returns an array of results.
 
 ### Promise.race
-Resolves or rejects as soon as the first promise settles.
+Resolves or rejects as soon as the first promise resolves or rejects.
 
 ### Promise.any
 Resolves as soon as the first promise fulfills or throws an `AggregateError` if all reject.
