@@ -32,7 +32,7 @@ console.log(dog.breed);  // "Labrador" (own property of dog)
 
 ## Array Methods
 ### Slice
-**slice(start, end)**:
+**slice(startIndex, endIndex)**:
 The `slice()` method extracts a shallow copy of a portion of an array without modifying the original array.
 the element at the end index is not included in the result
 ```
@@ -40,7 +40,7 @@ let x=["A","B","C","D","E","F","G"]
 console.log(x.slice(0,3)) // Returns [ 'A', 'B', 'C' ]
 ```
 ### Splice
-**splice(start, deleteCount, itemToAdd1)**
+**splice(startIndex, deleteCount, itemToAdd1)**
 The `splice()` method modifies the contents of an array by adding, removing, or replacing elements.
 ```
 let x=["A","B","C","D","E","F","G"]
