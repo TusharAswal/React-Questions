@@ -343,18 +343,6 @@ console.log(4); // Printed second, this is a synchronous operation and will be e
 ```
 ---
 
-## TypeScript
-### Interface vs. Type
-- **Interface**: Best for defining object/class structure. Supports declaration merging.
-- **Type**: More versatile, can define primitives, unions, intersections, tuples.
-
-### TypeScript Benefits in React Native
-- Static typing reduces runtime errors.
-- Refactoring is safer and consistent.
-- Enhanced autocompletion and documentation support in IDEs.
-
----
-
 ## SSL Pinning (React Native)
 A security measure to mitigate MITM attacks.
 ```javascript
@@ -874,6 +862,138 @@ function modifyObject(o) {
 modifyObject(obj);
 console.log(obj.name); // Output: "Doe" (the original object is changed)
 ```
+
+## TypeScript
+### Interface vs. Type
+- **Interface**: In TypeScript, an interface is a structure that defines the shape of an object. It allows you to specify the types of properties and methods that an object should have, without providing the actual implementation.
+```typescript
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  description?: string; // Optional property
+}
+//Usage
+const user: User = {
+  id: 1,
+  name: "John Doe",
+  email: "john.doe@example.com",
+};
+console.log(user.name); // John Doe
+```
+- **Type**: More versatile, can define primitives, unions, intersections, tuples.
+
+### Differences Between Interfaces and Types
+- Interfaces can be extended using extends, while types use intersection (&)
+```typescript
+//Interface
+interface Person {
+  name: string;
+  age: number;
+}
+interface Employee extends Person {
+  employeeId: number;
+}
+const employee: Employee = {
+  name: "Alice",
+  age: 25,
+  employeeId: 101,
+};
+console.log(employee); // { name: 'Alice', age: 25, employeeId: 101 }
+```
+```typescript
+type Person = {
+  name: string;
+  age: number;
+};
+type Employee = Person & {
+  employeeId: number;
+};
+const employee: Employee = {
+  name: "Bob",
+  age: 30,
+  employeeId: 102,
+};
+console.log(employee); // { name: 'Bob', age: 30, employeeId: 102 }
+```
+- Interfaces allow declaration merging (multiple declarations of the same interface are merged automatically), but types do not.
+```typescript
+//Interface
+interface User {
+  id: number;
+}
+interface User {
+  name: string;
+}
+const user: User = {
+  id: 1,
+  name: "Charlie",
+};
+console.log(user); // { id: 1, name: 'Charlie' }
+```
+```typescript
+//Type
+type User = {
+  id: number;
+};
+// Error: Duplicate identifier 'User'.
+// type User = {
+//   name: string;
+// };
+```
+- type can be used for unions, tuples, and primitives, whereas interface is specifically for defining object shapes.
+```typescript
+//Type
+type Status = "active" | "inactive" | "pending"; //Union types with multiple values
+const currentStatus: Status = "active";
+type Point = [number, number];
+const coordinates: Point = [10, 20]; //A Tuple is a fixed-size array where each element has a specific type. Unlike regular arrays, tuples define the type of each element at specific positions.
+console.log(currentStatus); // active
+console.log(coordinates);   // [10, 20]
+```
+
+### Getter & Setter methods in TS
+```typescript
+class Person {
+  private _name: string = "";
+  // Getter
+  get name(): string {
+    return this._name;
+  }
+  // Setter
+  set name(newName: string) {
+    this._name = newName;
+  }
+}
+const person = new Person();
+person.name = "Alice"; // Calls the setter
+console.log(person.name); // Calls the getter -> "Alice"
+// person.name = "Al"; // Error: Name must be at least 3 characters long
+```
+### How to implement class constants in TypeScript?
+In TypeScript, you can implement class constants by using the static keyword. Static properties or constants belong to the class itself rather than to an instance of the class.
+```typescript
+class MathConstants {
+  static readonly PI = 3.14159; // Class constant
+  static readonly E = 2.71828;  // Class constant
+
+  static getPiSquared(): number {
+    return this.PI * this.PI; // Access static constant within the class
+  }
+}
+// Accessing constants
+console.log(MathConstants.PI); // 3.14159
+console.log(MathConstants.E);  // 2.71828
+// Using the static method
+console.log(MathConstants.getPiSquared()); // 9.869587728099999
+```
+### TypeScript Benefits in React Native
+- Static typing reduces runtime errors.
+- Refactoring is safer and consistent.
+- Enhanced autocompletion and documentation support in IDEs.
+
+
+
 ### IBM
 - Maximum storage that html5 provides is **5 MB**
 - **<mark>** is used to hightlight text in HTML
