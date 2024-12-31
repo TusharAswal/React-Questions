@@ -50,16 +50,66 @@ console.log(x) // Returns [ 'D', 'E', 'F', 'G' ]
 ## Promises
 ### Promise.all
 Waits for all promises to resolve or for any to reject.
-
+```javascript
+const promise1 = new Promise((resolve, reject) => setTimeout(resolve, 1000, "First"));
+const promise2 = new Promise((resolve, reject) => setTimeout(resolve, 2000, "Second"));
+const promise3 = new Promise((resolve, reject) => setTimeout(resolve, 1500, "Third"));
+Promise.all([promise1, promise2, promise3])
+  .then(results => {
+    console.log(results); // ["First", "Second", "Third"]
+  })
+  .catch(error => {
+    console.log(error); // If any promise rejects, the entire promise chain is rejected
+  });
+```
 ### Promise.allSettled
 Waits for all promises to settle (resolve or reject) and returns an array of results.
+```javascript
+const promise1 = new Promise((resolve, reject) => setTimeout(resolve, 1000, "First"));
+const promise2 = new Promise((resolve, reject) => setTimeout(reject, 2000, "Error"));
+const promise3 = new Promise((resolve, reject) => setTimeout(resolve, 1500, "Third"));
 
+Promise.allSettled([promise1, promise2, promise3])
+  .then(results => {
+    console.log(results);
+    // [
+    //   { status: "fulfilled", value: "First" },
+    //   { status: "rejected", reason: "Error" },
+    //   { status: "fulfilled", value: "Third" }
+    // ]
+  });
+```
 ### Promise.race
-Resolves or rejects as soon as the first promise resolves or rejects.
+Promise.race takes an array of promises and returns a single promise that resolves or rejects as soon as any one of the input promises resolves or rejects.
+```javascript
+const promise1 = new Promise((resolve, reject) => setTimeout(resolve, 1000, "First"));
+const promise2 = new Promise((resolve, reject) => setTimeout(reject, 500, "Error"));
+const promise3 = new Promise((resolve, reject) => setTimeout(resolve, 1500, "Third"));
+
+Promise.race([promise1, promise2, promise3])
+  .then(result => {
+    console.log(result); // "Error" because promise2 rejects first
+  })
+  .catch(error => {
+    console.log(error); // "Error"
+  });
+```
 
 ### Promise.any
 Resolves as soon as the first promise fulfills or throws an `AggregateError` if all reject.
+```javascript
+const promise1 = new Promise((resolve, reject) => setTimeout(reject, 1000, "Error"));
+const promise2 = new Promise((resolve, reject) => setTimeout(resolve, 500, "First"));
+const promise3 = new Promise((resolve, reject) => setTimeout(resolve, 1500, "Third"));
 
+Promise.any([promise1, promise2, promise3])
+  .then(result => {
+    console.log(result); // "First", because it's the first resolved promise
+  })
+  .catch(error => {
+    console.log(error); // If all promises reject, this will catch the error
+  });
+```
 ---
 
 ## InteractionManager (React Native)
