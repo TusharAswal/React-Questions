@@ -436,8 +436,8 @@ const person = {
 };
 ```
 1. **Call:** The call method allows you to call a function with a specified this value and individual arguments.
-**call(thisArg, arg1, arg2, /* …, */ argN)**
 ```javascript
+//call(thisArg, arg1, arg2, /* …, */ argN)
 function fullName(city, country) {
   console.log(`${this.firstName} ${this.lastName}, ${city}, ${country}`);
 }
