@@ -1061,6 +1061,17 @@ console.log(MathConstants.getPiSquared()); // 9.869587728099999
 ### Resource Links
 https://www.interviewbit.com/javascript-interview-questions/#different-methods-can-you-make-an-object
 https://github.com/lydiahallie/javascript-questions
+
+### Remote Job Companies
+1. https://www.linkedin.com/company/aexonic-technologies/posts/?feedView=all
+2. https://www.linkedin.com/company/metafic/
+3. https://www.linkedin.com/company/globallogic/life/e41c9913-a1fc-4b0b-b080-3691f3ff721d/
+4. https://www.linkedin.com/company/quantum-sharq-innovative-solutions/
+5. https://www.linkedin.com/company/cwc-mohali/
+
+### Onsite Job Companies
+1. https://www.linkedin.com/company/kpmg/posts/?feedView=all
+2. https://www.linkedin.com/company/globallogic/life/e41c9913-a1fc-4b0b-b080-3691f3ff721d/
 ---
 
 This README consolidates foundational and advanced JavaScript and React concepts for developers.
