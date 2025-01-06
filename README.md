@@ -1068,6 +1068,8 @@ https://github.com/lydiahallie/javascript-questions
 3. https://www.linkedin.com/company/globallogic/life/e41c9913-a1fc-4b0b-b080-3691f3ff721d/
 4. https://www.linkedin.com/company/quantum-sharq-innovative-solutions/
 5. https://www.linkedin.com/company/cwc-mohali/
+6. https://www.linkedin.com/company/porch/life/a1521592-3b8b-4397-9541-5b2a319eade0/
+7. https://www.linkedin.com/company/deltaclass-technology-solutions-limited/
 
 ### Onsite Job Companies
 1. https://www.linkedin.com/company/kpmg/posts/?feedView=all
