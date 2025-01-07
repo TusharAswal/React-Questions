@@ -1070,6 +1070,7 @@ https://github.com/lydiahallie/javascript-questions
 5. https://www.linkedin.com/company/cwc-mohali/
 6. https://www.linkedin.com/company/porch/life/a1521592-3b8b-4397-9541-5b2a319eade0/
 7. https://www.linkedin.com/company/deltaclass-technology-solutions-limited/
+8. https://www.linkedin.com/company/thomson-reuters/life/india/
 
 ### Onsite Job Companies
 1. https://www.linkedin.com/company/kpmg/posts/?feedView=all
