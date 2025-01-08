@@ -1073,8 +1073,45 @@ document.getElementById('child').addEventListener('click', () => {
 document.getElementById('parent').addEventListener('click', () => {
     console.log('Parent clicked during capturing!');
 }, true);
+```
+### Function Composition
+Function Composition is the process of combining two or more functions to produce a new function or perform a series of operations. It allows you to build complex operations by combining simpler ones.
+- Functions are executed from right to left (similar to mathematical composition).
+```javascript
+const add = (x) => x + 2;
+const multiply = (x) => x * 3;
+// Compose two functions
+const compose = (f, g) => (x) => f(g(x));
+const addThenMultiply = compose(multiply, add);
+console.log(addThenMultiply(5)); // (5 + 2) * 3 = 21
+```
+### Overriding hooks
+```javascript
+import { useState } from "react";
 
+function useLoggedState(initialValue) {
+  const [state, setState] = useState(initialValue);
 
+  const setLoggedState = (value) => {
+    console.log(`State changing from ${state} to ${value}`);
+    setState(value);
+  };
+
+  return [state, setLoggedState];
+}
+
+// Usage
+function Counter() {
+  const [count, setCount] = useLoggedState(0);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+}
+```
 ### IBM
 - Maximum storage that html5 provides is **5 MB**
 - **<mark>** is used to hightlight text in HTML
