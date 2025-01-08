@@ -1045,7 +1045,34 @@ console.log(MathConstants.getPiSquared()); // 9.869587728099999
 - Static typing reduces runtime errors.
 - Refactoring is safer and consistent.
 - Enhanced autocompletion and documentation support in IDEs.
+## Event Propagation: Bubbling vs. Capturing
 
+| Feature               | **Event Bubbling**                                   | **Event Capturing**                              |
+|-----------------------|-----------------------------------------------------|-------------------------------------------------|
+| **Definition**        | Event propagates from the target element upwards to its ancestors. | Event propagates from the root element down to the target element. |
+| **Direction**         | Target → Parent → Ancestors → Document               | Document → Ancestors → Parent → Target          |
+| **Default Behavior**  | Enabled by default for event listeners.              | Must explicitly enable by passing `true` as the third parameter in `addEventListener`. |
+| **Use Case**          | Commonly used for event delegation, handling child events in the parent. | Useful when you need to intercept events before they reach the target. |
+| **Stopping Propagation** | Use `event.stopPropagation()` to stop bubbling.    | Use `event.stopPropagation()` to stop capturing. |
+
+### Example Code for Event Propagation
+
+```javascript
+// Event Bubbling (Default)
+document.getElementById('child').addEventListener('click', () => {
+    console.log('Child clicked!');
+});
+document.getElementById('parent').addEventListener('click', () => {
+    console.log('Parent clicked!');
+});
+
+// Event Capturing
+document.getElementById('child').addEventListener('click', () => {
+    console.log('Child clicked during capturing!');
+}, true); // 'true' enables capturing phase
+document.getElementById('parent').addEventListener('click', () => {
+    console.log('Parent clicked during capturing!');
+}, true);
 
 
 ### IBM
