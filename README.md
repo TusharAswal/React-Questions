@@ -1112,6 +1112,11 @@ function Counter() {
   );
 }
 ```
+
+### Key Threads in React Native:
+- Main/UI Thread
+- JavaScript Thread
+- 
 ### IBM
 - Maximum storage that html5 provides is **5 MB**
 - **<mark>** is used to hightlight text in HTML
