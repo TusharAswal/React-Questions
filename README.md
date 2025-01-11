@@ -1116,7 +1116,88 @@ function Counter() {
 ### Key Threads in React Native:
 - Main/UI Thread
 - JavaScript Thread
-- 
+
+### MVC (Model-View-Controller)
+- Model: Manages the data and business logic.
+- View: Represents the UI and displays the data from the Model.
+- Controller: Handles user input, processes it, and updates the Model and/or View.
+
+# Typescript
+### never
+- The never type in TypeScript represents values that never occur. It is used to indicate that a function or code block will never return or that a variable cannot hold any value.
+- To represent unreachable code.
+- As a return type for functions that do not return a value.
+```typescript
+function throwError(message: string): never {
+  throw new Error(message);
+}
+```
+### What is type inference in TypeScript?
+- Type inference in TypeScript is the process where the TypeScript compiler automatically determines the type of a variable, parameter, or return value based on its context without requiring explicit type annotations.
+```typescript
+let age = 25; // TypeScript infers 'age' as 'number'
+age = "twenty-five"; // Error: Type 'string' is not assignable to type 'number'
+```
+
+### How can you make all properties of an interface optional?
+- Using Partial
+```typescript
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+const user: Partial<User> = {
+  name: "John", // It's fine to omit 'id' and 'email'
+};
+```
+- Manual Approach
+```typescript
+interface User {
+  id?: number;
+  name?: string;
+  email?: string;
+}
+```
+### Explain the as keyword in TypeScript.
+- The as keyword in TypeScript is used for type assertions, which allow you to tell the TypeScript compiler to treat a value as a specific type. This does not perform runtime type checking or conversion; it only tells the compiler how to interpret the type of a value.
+### Array vs Tuple
+# TypeScript: Tuples vs Arrays
+
+| Feature          | Tuple                                        | Array                                        |
+|------------------|----------------------------------------------|----------------------------------------------|
+| **Length**       | Fixed length (predefined)                   | Variable length (dynamic size)               |
+| **Element Type** | Can contain different types (heterogeneous)  | All elements must be of the same type (homogeneous) |
+| **Access**       | Elements are accessed by index, types are enforced | Elements are accessed by index, types are the same |
+| **Use Case**     | Used for fixed structures with mixed types, like records or key-value pairs | Used for collections of similar data (e.g., numbers, strings) |
+| **Mutability**   | Elements can be reassigned, but the number of elements is fixed | Elements and size can be modified |
+| **Syntax**       | `[type1, type2, ...]`                        | `type[]`                                     |
+
+## Examples
+
+### Tuple Example
+```typescript
+let person: [string, number] = ['John', 25];
+// Correct usage
+let coordinates: [number, number] = [40.7128, 74.0060];
+// Incorrect usage: will throw an error
+person = [30, 'Jane']; // Error: Type 'number' is not assignable to type 'string'
+```
+### How does TypeScript handle enums?
+TypeScript handles enums by providing a way to define a set of named constants. Enums are a special type in TypeScript that allows you to assign names to numeric or string values.
+```typescript
+enum CommonExample {
+  Up = 1,
+  Active = 'ACTIVE',
+  Left,
+  Right
+}
+console.log(CommonExample.Up); // 1
+console.log(CommonExample.Active); // "ACTIVE"
+console.log(CommonExample.Left); // 2
+console.log(CommonExample.Right); // 3
+```
 ### IBM
 - Maximum storage that html5 provides is **5 MB**
 - **<mark>** is used to hightlight text in HTML
@@ -1140,10 +1221,13 @@ https://github.com/lydiahallie/javascript-questions
 6. https://www.linkedin.com/company/porch/life/a1521592-3b8b-4397-9541-5b2a319eade0/
 7. https://www.linkedin.com/company/deltaclass-technology-solutions-limited/
 8. https://www.linkedin.com/company/thomson-reuters/life/india/
+9.  https://www.linkedin.com/company/3pillar/life/29c30451-4deb-4a8e-bd49-0628a7b9100f/
 
 ### Onsite Job Companies
 1. https://www.linkedin.com/company/kpmg/posts/?feedView=all
 2. https://www.linkedin.com/company/globallogic/life/e41c9913-a1fc-4b0b-b080-3691f3ff721d/
+3. https://www.linkedin.com/company/okta-inc-/life/careers/
+4. https://www.linkedin.com/company/ouroglobal/
 ---
 
 This README consolidates foundational and advanced JavaScript and React concepts for developers.
