@@ -1,5 +1,26 @@
 # JavaScript Concepts and Examples
 
+### Currying
+```javascript
+function finalPrice(price){
+    return function(tax){
+        return function(extraCharge){
+            return price+tax+extraCharge
+        }
+    }
+}
+// Calculating price for item A
+const priceA=finalPrice(10)
+const taxA=priceA(10)
+const extraA=taxA(10)
+console.log("Price for A",extraA)
+// Calculating price for item B
+const priceB=finalPrice(25)
+const taxB=priceB(5)
+const extraB=taxB(7)
+console.log("Price for B",extraB)
+```
+
 ## Prototype Chain
 In JavaScript, the prototype chain allows objects to inherit properties and methods from other objects.
 
@@ -409,6 +430,18 @@ const axiosInstance = axios.create({
     }),
 });
 ```
+### Redux and React's Context API 
+**Complex Global State Management:** Redux is ideal for managing complex global state across your application. It provides a centralized store where all your state is managed, making it easier to debug, trace changes, and manage asynchronous actions.
+
+**Predictable State Changes:** Redux enforces a strict unidirectional data flow and immutable state, ensuring that your state changes are predictable and follow clear patterns (actions → reducers → store).
+
+**Middleware Support:** Redux supports middleware, which allows you to add custom functionality like logging, crash reporting, or asynchronous actions (using libraries like Redux Thunk or Redux Saga).
+
+**Large Applications:** For large-scale applications with deeply nested components or where many components need access to shared state, Redux's global store can simplify passing props down through multiple layers.
+
+**Developer Familiarity:** Redux has been widely adopted in the React ecosystem, so many developers are already familiar with its patterns and best practices.
+
+**Performance Considerations:** Context API is great for passing props down through component trees, but it's not optimized for high-frequency updates or large-scale state management. Redux, on the other hand, can optimize state updates and subscriptions efficiently.
 
 ---
 
