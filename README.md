@@ -236,7 +236,10 @@ function outer() {
 
 ## React Concepts
 ### Higher-Order Component (HOC)
-An advanced technique for reusing component logic.
+- An advanced technique for reusing component logic.
+- Adding common behavior (e.g., authentication, logging).
+- Managing state or props.
+- Handling side effects like data fetching.
 - Creating a HOC
 ```javascript
 const withEnhancement = (WrappedComponent) => {
@@ -251,7 +254,26 @@ const withEnhancement = (WrappedComponent) => {
 const EnhancedComponent = withEnhancement(MyComponent);
 export default EnhancedComponent;
 ```
+### Higher Order Functions (HOFs):
+- Array methods like map, filter, and reduce.
+- Function composition or currying.
+- Custom utility functions (e.g., debounce, throttle).
+```javascript
+// Currying
+const multiplyBy = (factor) => (number) => number * factor;
+const double = multiplyBy(2);
+console.log(double(4)); // 8
+// Map,Filter, Reduce
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
+// Chain: Filter out even numbers, double them, then sum them
+const result = numbers
+  .filter(num => num % 2 === 0)  // Get even numbers
+  .map(num => num * 2)           // Double each even number
+  .reduce((acc, num) => acc + num, 0); // Sum them up
+
+console.log(result);  // 60 (i.e., (2*2) + (4*2) + (6*2) + (8*2) + (10*2))
+```
 ### Context API
 Used to share global state without prop drilling.
 - Create a context
