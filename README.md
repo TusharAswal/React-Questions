@@ -534,6 +534,12 @@ console.log(gen.next('Value for first yield').value);
 - Use Lazy Loading and Code Splitting
 - Use Hermes Engine
 
+### Replace Stack React Navigation
+```javascript
+import { StackActions } from '@react-navigation/native';
+navigation.dispatch(StackActions.replace('NewScreen', { /* params */ }));
+```
+
 ### Key Testing Types (Jest)
 - Unit testing is a software testing technique that involves testing individual components or functions of an application in isolation to ensure they behave as expected.
 ```javascript
