@@ -1045,6 +1045,128 @@ console.log(MathConstants.getPiSquared()); // 9.869587728099999
 - Static typing reduces runtime errors.
 - Refactoring is safer and consistent.
 - Enhanced autocompletion and documentation support in IDEs.
+
+### What is the difference between any, unknown, and never types in TypeScript?
+- **any**: The any type is the most permissive type in TypeScript. It effectively disables type checking, allowing any value to be assigned to a variable, and it can be used anywhere.
+- **unknown**: The unknown type is a safer alternative to any. While unknown can hold any type of value (like any), it requires explicit type checking**(type narrowing)** before performing operations on the value. This ensures that you validate the type before interacting with it.
+```typescript
+let value: unknown = 42;
+value = "string"; // No error, can change type freely
+
+if (typeof value === "string") {
+  console.log(value.toUpperCase()); // No error, because the type is checked
+} else {
+  console.log(value.toUpperCase()); // Error: Property 'toUpperCase' does not exist on type 'unknown'
+}
+```
+- **never**: he never type represents a value that never occurs. It is used for functions that will never return a value (e.g., functions that throw an error or enter an infinite loop).
+```typescript
+function throwError(message: string): never {
+  throw new Error(message); // This function never returns
+}
+
+function infiniteLoop(): never {
+  while (true) {} // Infinite loop, never ends
+}
+```
+### How do you define and use enums in TypeScript?
+```typescript
+enum Direction {
+  Up,    // 0
+  Down,  // 1
+  Left,  // 2
+  Right  // 3
+}
+let move: Direction = Direction.Up;
+console.log(move);  // Output: 0
+```
+### readonly in ts
+- In TypeScript, the readonly modifier is used to mark properties of objects or array elements as immutable, meaning their values cannot be changed after they are initialized.
+```typescript
+interface Person {
+  readonly name: string;
+  readonly age: number;
+}
+
+const person: Person = { name: "John", age: 30 };
+
+// Trying to modify the readonly properties will result in a compile-time error
+person.name = "Alice";  // Error: Cannot assign to 'name' because it is a read-only property.
+person.age = 35;        // Error: Cannot assign to 'age' because it is a read-only property.
+```
+### How can you make all properties of an interface optional?
+```typescript
+interface Person {
+  name: string;
+  age: number;
+  address: string;
+}
+
+const person: Partial<Person> = {
+  name: "John" // Only one property is required
+};
+```
+### What is the as keyword used for in TypeScript?
+```typescript
+let someValue: any = "Hello, TypeScript!";
+// Assert that `someValue` is a string
+let strLength: number = (someValue as string).length;
+console.log(strLength);  // Output: 18
+```
+
+### What are intersection types, and how do they differ from inheritance?
+- An intersection type in TypeScript allows you to combine multiple types into one. A value of an intersection type will have all the properties and methods of each of the types involved in the intersection. It’s like saying “a value must satisfy all of these types.”
+```typescript
+interface Person {
+  name: string;
+  age: number;
+}
+
+interface Employee {
+  jobTitle: string;
+  company: string;
+}
+
+type EmployeeWithDetails = Person & Employee;
+
+const employee: EmployeeWithDetails = {
+  name: "Alice",
+  age: 30,
+  jobTitle: "Software Developer",
+  company: "Tech Corp",
+};
+```
+| **Aspect**                 | **Intersection Types**                            | **Inheritance**                                    |
+|----------------------------|---------------------------------------------------|---------------------------------------------------|
+| **Purpose**                 | Combine multiple types into one type.            | Create a hierarchical relationship between classes or interfaces. |
+| **Usage**                   | Used for combining the properties of different types. | Used to create subclasses that inherit properties and methods from a superclass. |
+| **Composition**             | A type has **all** properties from multiple types. | A subclass inherits properties and methods from a superclass. |
+| **Type System**             | Works at the type level, doesn't require classes. | Works with classes and objects, creating a class hierarchy. |
+| **Relationship**            | No hierarchical relationship.                    | Models an "is-a" relationship (e.g., `Dog` is an `Animal`). |
+| **Flexibility**             | Can combine any types, including objects, interfaces, and even primitives. | Tightly coupled with object-oriented programming and class structures. |
+
+### What is a function overload in TypeScript, and how does it work?
+```typescript
+// Overload signatures
+function calculate(a: number, b: number): number;
+function calculate(a: string, b: string): string;
+// Implementation signature
+function calculate(a: number | string, b: number | string): number | string {
+  if (typeof a === "number" && typeof b === "number") {
+    return a + b;  // If both are numbers, return sum
+  } else if (typeof a === "string" && typeof b === "string") {
+    return a + " " + b;  // If both are strings, return concatenation
+  }
+  throw new Error("Invalid arguments");
+}
+console.log(calculate(5, 10));        // Output: 15
+console.log(calculate("Hello", "World")); // Output: "Hello World"
+```
+### What is type narrowing, and how is it done in TypeScript?
+Type narrowing in TypeScript is the process of refining the type of a variable within a specific scope or block of code
+- Using typeof Operator
+- Using instanceof Operator
+
 ## Event Propagation: Bubbling vs. Capturing
 
 | Feature               | **Event Bubbling**                                   | **Event Capturing**                              |
