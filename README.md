@@ -1288,6 +1288,11 @@ interface User {
 ```
 ### Explain the as keyword in TypeScript.
 - The as keyword in TypeScript is used for type assertions, which allow you to tell the TypeScript compiler to treat a value as a specific type. This does not perform runtime type checking or conversion; it only tells the compiler how to interpret the type of a value.
+```typescript
+let someValue: unknown = "This is a string";
+let strLength: number = (someValue as string).length;
+console.log(strLength); // Output: 16
+```
 ### Array vs Tuple
 # TypeScript: Tuples vs Arrays
 
