@@ -1,6 +1,8 @@
 # JavaScript Concepts and Examples
 
 ### Currying
+- In below example curring become useful if finalPrice or tax remain same for multipe items. Then only extra function be used.
+This become more important if the data (price/tax) are large obj they then dont need to be sent again and again, like we do in multi param fn.
 ```javascript
 function finalPrice(price){
     return function(tax){
