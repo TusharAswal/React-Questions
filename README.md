@@ -1107,6 +1107,7 @@ const person: Partial<Person> = {
 };
 ```
 ### What is the as keyword used for in TypeScript?
+- The as keyword in TypeScript is used for type assertions. It allows you to tell the TypeScript compiler to treat a value as a specific type, overriding its inferred or declared type.
 ```typescript
 let someValue: any = "Hello, TypeScript!";
 // Assert that `someValue` is a string
