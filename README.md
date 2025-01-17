@@ -1234,6 +1234,24 @@ console.log(calculate("Hello", "World")); // Output: "Hello World"
 Type narrowing in TypeScript is the process of refining the type of a variable within a specific scope or block of code
 - Using typeof Operator
 - Using instanceof Operator
+```typescript
+function printValue(value: string | number | boolean) {
+  if (typeof value === "string") {
+    // Narrowed to string
+    console.log(`String value: ${value.toUpperCase()}`);
+  } else if (typeof value === "number") {
+    // Narrowed to number
+    console.log(`Number value: ${value + 10}`);
+  } else {
+    // Narrowed to boolean
+    console.log(`Boolean value: ${value ? "True" : "False"}`);
+  }
+}
+// Test cases
+printValue("hello"); // String value: HELLO
+printValue(42);      // Number value: 52
+printValue(true);    // Boolean value: True
+```
 
 ## Event Propagation: Bubbling vs. Capturing
 
