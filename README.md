@@ -255,6 +255,10 @@ const EnhancedComponent = withEnhancement(MyComponent);
 export default EnhancedComponent;
 ```
 ### Higher Order Functions (HOFs):
+- A higher-order function is a function that either:
+Takes one or more functions as arguments, or
+Returns a function as its result.
+
 - Array methods like map, filter, and reduce.
 - Function composition or currying.
 - Custom utility functions (e.g., debounce, throttle).
