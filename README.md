@@ -831,7 +831,6 @@ useReducer is a React hook used for managing state in components, especially whe
 ```javascript
 const [state, dispatch] = useReducer(reducer, initialState);
 ```
-
 # Features Comparison
 
 | Feature                          | Axios                                  | Fetch                                   |
@@ -1370,6 +1369,52 @@ console.log(CommonExample.Active); // "ACTIVE"
 console.log(CommonExample.Left); // 2
 console.log(CommonExample.Right); // 3
 ```
+
+### Scenarios
+- JS Thread blocking
+**App Startup:**
+
+The app initializes and renders the FlatList with the initial dataset (data state with 20 items).
+The FlatList is responsive and scrolls smoothly because both the UI thread and JavaScript thread are working as expected.
+
+**Pressing the "Block JS Thread" Button:**
+
+When the "Block JS Thread" button is pressed, the blockJavaScriptThread function runs a synchronous while loop that blocks the JavaScript thread for 3 seconds.
+
+*Key Issue:*
+The JavaScript thread is now completely occupied by the while loop and cannot process any other tasks (e.g., handling state updates, triggering callbacks, or sending instructions to the UI thread).
+
+**Attempting to Scroll the FlatList During Blocking:**
+
+The UI thread detects the scroll gesture, but it needs to interact with the JavaScript thread to:
+Process the scroll event logic.
+Trigger the onEndReached callback to load more data when the user scrolls near the end of the list.
+
+*Problem:*
+
+Since the JavaScript thread is busy with the blockJavaScriptThread function:
+The FlatList's scroll gestures are delayed or freeze entirely.
+The onEndReached callback cannot execute, so no new data is fetched.
+
+**Impact on UI Updates:**
+
+While the JavaScript thread is blocked, it cannot:
+Process state updates (e.g., setLoading(true) in loadMoreData).
+Send updates to the UI thread to render new items.
+As a result, the app becomes unresponsive until the blocking operation is completed.
+
+**JavaScript Thread is Freed After Blocking:**
+
+Once the while loop in blockJavaScriptThread completes, the JavaScript thread becomes free to handle other tasks.
+At this point:
+Any pending scroll gestures or onEndReached events are processed.
+The app returns to normal responsiveness.
+
+**Triggering onEndReached to Load More Data:**
+
+If the user scrolls again after the JavaScript thread is unblocked, the onEndReached callback is triggered.
+New data is fetched, and the FlatList updates its state and renders the additional items.
+
 ### IBM
 - Maximum storage that html5 provides is **5 MB**
 - **<mark>** is used to hightlight text in HTML
