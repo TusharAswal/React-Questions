@@ -565,6 +565,13 @@ console.log(gen.next('Value for first yield').value);
 import { StackActions } from '@react-navigation/native';
 navigation.dispatch(StackActions.replace('NewScreen', { /* params */ }));
 ```
+### Hermes
+- Hermes is a lightweight, high-performance JavaScript engine designed by Meta (formerly Facebook) specifically for React Native apps
+**1. Improves Startup Time:**
+Hermes uses Ahead of Time compilation(AOT), which compiles the JS bundle during build time instead of app runtime which the traditional JS engine(JavaScriptCore) do. JavaScriptCore used Just in Time compilation.
+
+**2. Reduces Memory Usage & Smaller App Size and Increases performance:**
+Hermes minimizes memory usage & reduce app size by precompiling JS bundle into bytecode. Bytecode is smaller in size than traditional JS source code.
 
 ### Key Testing Types (Jest)
 - Unit testing is a software testing technique that involves testing individual components or functions of an application in isolation to ensure they behave as expected.
@@ -1446,6 +1453,7 @@ https://github.com/lydiahallie/javascript-questions
 3. https://www.linkedin.com/company/okta-inc-/life/careers/
 4. https://www.linkedin.com/company/ouroglobal/
 5. https://www.linkedin.com/company/nooncom/jobs/ (https://gist.github.com/ahmedam55)
+6. https://www.linkedin.com/company/intellecthq/?originalSubdomain=sg
 ---
 
 This README consolidates foundational and advanced JavaScript and React concepts for developers.
