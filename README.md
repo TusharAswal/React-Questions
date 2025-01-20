@@ -1427,7 +1427,7 @@ New data is fetched, and the FlatList updates its state and renders the addition
 
 # Understanding Time Complexity in JavaScript
 ### Constant Time - O(1)
-The execution time grows directly proportional to the input size.
+The operation does not depend on the input size.
 ```javascript
 function getFirstElement(arr) {
   return arr[0]; // Executes in constant time
