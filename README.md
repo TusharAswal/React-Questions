@@ -1471,7 +1471,7 @@ function binarySearch(arr, target) {
 }
 ```
 ### Exponential Time – O(2ⁿ)
-The search space is halved with each iteration.
+The execution time doubles with each additional input.
 ```javascript
 function fibonacci(n) {
   if (n <= 1) return n;
