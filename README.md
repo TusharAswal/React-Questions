@@ -1425,6 +1425,59 @@ The app returns to normal responsiveness.
 If the user scrolls again after the JavaScript thread is unblocked, the onEndReached callback is triggered.
 New data is fetched, and the FlatList updates its state and renders the additional items.
 
+# Understanding Time Complexity in JavaScript
+### Constant Time - O(1)
+The execution time grows directly proportional to the input size.
+```javascript
+function getFirstElement(arr) {
+  return arr[0]; // Executes in constant time
+}
+```
+
+### Linear Time – O(n)
+The execution time grows directly proportional to the input size.
+```javascript
+function printArray(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    console.log(arr[i]); // Executes once for each element
+  }
+}
+```
+
+### Quadratic Time – O(n²)
+Nested loops result in n * n iterations.
+```javascript
+function printPairs(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = 0; j < arr.length; j++) {
+      console.log(arr[i], arr[j]); // Executes n * n times
+    }
+  }
+}
+```
+
+### Logarithmic Time – O(log n)
+The search space is halved with each iteration.
+```javascript
+function binarySearch(arr, target) {
+  let start = 0, end = arr.length - 1;
+  while (start <= end) {
+    let mid = Math.floor((start + end) / 2);
+    if (arr[mid] === target) return mid;
+    if (arr[mid] < target) start = mid + 1;
+    else end = mid - 1;
+  }
+  return -1;
+}
+```
+### Exponential Time – O(2ⁿ)
+The search space is halved with each iteration.
+```javascript
+function fibonacci(n) {
+  if (n <= 1) return n;
+  return fibonacci(n - 1) + fibonacci(n - 2); // Recursively calls itself twice
+}
+```
 ### IBM
 - Maximum storage that html5 provides is **5 MB**
 - **<mark>** is used to hightlight text in HTML
