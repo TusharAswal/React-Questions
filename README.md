@@ -369,6 +369,9 @@ function Modal({ message }) {
 }
 ```
 
+### Pure components
+- A pure component re-renders only when its props or state change.
+- Created using **React.PureComponent** in class based compoenent and **React.memo** in a functional based component
 ### useImperativeHandle
 Expose methods/values from a child component to a parent component.
 
