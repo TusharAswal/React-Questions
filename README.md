@@ -1513,6 +1513,7 @@ https://github.com/lydiahallie/javascript-questions
 4. https://www.linkedin.com/company/ouroglobal/
 5. https://www.linkedin.com/company/nooncom/jobs/ (https://gist.github.com/ahmedam55)
 6. https://www.linkedin.com/company/intellecthq/?originalSubdomain=sg
+7. https://www.linkedin.com/company/metlife/life/
 ---
 
 This README consolidates foundational and advanced JavaScript and React concepts for developers.
