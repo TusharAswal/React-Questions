@@ -1481,6 +1481,123 @@ function fibonacci(n) {
   return fibonacci(n - 1) + fibonacci(n - 2); // Recursively calls itself twice
 }
 ```
+
+### Graph QL
+**Graph Q: v/s REST**
+- Graph QL fixes the problem of Over-fetching/Under-fetching, by returning only those data that was provided when executing a query.
+- Graph QL provides the option to get different type of data from a single table as compared to REST, that might require multiple apis to be called for that same data.
+    - One exapmle can be fetching User data & User posts data using same query
+- Graph QL allows Easier Aggregation of Related Data, this can be understood with this example:
+    - Suppose we need to fetch the User post that requires user id, in REST this would reqire us to first call User details api to get **USER ID**, then call User post api with the previously received ID. In Graph QL we can simply specify the query to fetch all the relevent details in single API.
+- Graph QL allows Better Handling of Versioning, REST api would require versioning.
+- Graph QL provides Real-Time Data with Subscriptions, REST does not have any such in built function.
+```graphql
+subscription {
+  commentAdded(postId: 1) {
+    text
+    author {
+      name
+    }
+  }
+}
+```
+
+**How do you make a GraphQL request from a React Native or React app?**
+- Using fetch
+```graphql
+const response = await fetch('https://api.example.com/graphql', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ query }),
+  });
+```
+- Using Apollo Client
+```graphql
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+const client = new ApolloClient({
+  uri: 'https://api.example.com/graphql',
+  cache: new InMemoryCache(),
+});
+const App = () => (
+  <ApolloProvider client={client}>
+    {/* Other components */}
+  </ApolloProvider>
+);
+
+// Querying data
+const { loading, error, data } = useQuery(GET_USER);
+// Mutations
+const [addUser, { data, loading, error }] = useMutation(ADD_USER);
+// Subscriptions
+const { data, loading } = useSubscription(COMMENT_ADDED);
+```
+
+**What is a GraphQL fragment, and how can it help reduce redundancy in frontend code?**
+- Define fragment
+```graphql
+// Declare common fragement
+const USER_FIELDS = gql`
+  fragment UserFields on User {
+    // Here on User means UserFields is a fragment of User schema, this schema will be defined by backend
+    id
+    name
+    email
+    profilePicture
+  }
+`;
+
+// Use fragment
+const GET_USER = gql`
+  query {
+    user(id: 1) {
+      ...UserFields
+    }
+  }
+  ${USER_FIELDS} // Include the fragment
+`;
+```
+**Cache Policies in Apollo Client**
+- **cache-first (default)**: Return data from the cache if available, otherwise, fetch from the network.
+- **cache-and-network**: Return data from the cache first, but also fetch the latest data from the network.
+- **network-only**: Always fetch the data from the network and ignore the cache.
+- **no-cache**: Do not store the result in the cache.
+- **cache-only**: Only return data from the cache, and never fetch from the network.
+
+```graphql
+// Initialize Apollo Client with cache configuration
+const client = new ApolloClient({
+  uri: 'https://your-graphql-api.com/graphql',
+  cache: new InMemoryCache(),  // Enable the normalized cache
+});
+
+const { data, loading, error } = useQuery(GET_USERS, {
+  fetchPolicy: 'cache-and-network', // Return cached data first, but also fetch from network
+});
+```
+
+**Realtime update in Grph QL**
+```graphql
+// Create WebSocket link for subscription
+const wsLink = new WebSocketLink({
+  uri: 'wss://your-graphql-api.com/graphql', // WebSocket URL for your server
+  options: {
+    reconnect: true, // Reconnect if connection is lost
+  },
+});
+
+// Create Apollo Client with WebSocket link and InMemoryCache
+const client = new ApolloClient({
+  link: wsLink,
+  cache: new InMemoryCache(),
+});
+// Usage with cleanup
+const { data, loading, error, unsubscribe } = useSubscription(NEW_MESSAGE_SUBSCRIPTION);
+
+```
+
+
 ### IBM
 - Maximum storage that html5 provides is **5 MB**
 - **<mark>** is used to hightlight text in HTML
