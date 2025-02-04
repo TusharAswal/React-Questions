@@ -1596,6 +1596,15 @@ const client = new ApolloClient({
 const { data, loading, error, unsubscribe } = useSubscription(NEW_MESSAGE_SUBSCRIPTION);
 
 ```
+## 🚀 Apollo Client Hooks in React
+
+| Hook                | Purpose                                  | When to Use? |
+|--------------------|--------------------------------|----------------|
+| **`useQuery()`**  | Fetches data                  | Automatically fetch data when component mounts |
+| **`useLazyQuery()`** | Fetches data on demand       | Fetch data only when triggered (e.g., button click) |
+| **`useMutation()`** | Modifies data (Create/Update/Delete) | When updating data on the server |
+| **`useSubscription()`** | Listens for real-time updates | When listening for live events from the server |
+
 
 
 ### IBM
