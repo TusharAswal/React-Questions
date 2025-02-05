@@ -1266,6 +1266,8 @@ printValue(true);    // Boolean value: True
 ```
 
 ## Event Propagation: Bubbling vs. Capturing
+Event propagation is the mechanism that determines how events flow through the DOM (Document Object Model) when an event occurs. It consists of three phases
+Capturing Phase > Target Phase > Bubbling Phase
 
 | Feature               | **Event Bubbling**                                   | **Event Capturing**                              |
 |-----------------------|-----------------------------------------------------|-------------------------------------------------|
