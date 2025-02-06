@@ -1608,7 +1608,10 @@ const { data, loading, error, unsubscribe } = useSubscription(NEW_MESSAGE_SUBSCR
 | **`useMutation()`** | Modifies data (Create/Update/Delete) | When updating data on the server |
 | **`useSubscription()`** | Listens for real-time updates | When listening for live events from the server |
 
-
+const { loading, error, data } = useQuery(GET_USER_PROFILE);
+const [updateUserProfile, { loading, error, data }] = useMutation(UPDATE_USER_PROFILE);
+const [getUserProfile, { loading, error, data }] = useLazyQuery(GET_USER_PROFILE);
+const { data, loading, error } = useSubscription(MESSAGE_RECEIVED);
 
 ### IBM
 - Maximum storage that html5 provides is **5 MB**
