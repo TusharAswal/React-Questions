@@ -1612,7 +1612,44 @@ const { data, loading, error, unsubscribe } = useSubscription(NEW_MESSAGE_SUBSCR
 - const [updateUserProfile, { loading, error, data }] = useMutation(UPDATE_USER_PROFILE);
 - const [getUserProfile, { loading, error, data }] = useLazyQuery(GET_USER_PROFILE);
 - const { data, loading, error } = useSubscription(MESSAGE_RECEIVED);
+### Query
+```javascript
+const GET_USERS = gql`
+  query GetUsers {
+    users {
+      id
+      name
+      email
+    }
+  }
+`;
+```
 
+### Mutation
+```javascript
+const ADD_USER = gql`
+  mutation AddUser($name: String!, $email: String!) {
+    addUser(name: $name, email: $email) {
+      id
+      name
+      email
+    }
+  }
+`;
+```
+
+### Subscription
+```javascript
+const USER_ADDED = gql`
+  subscription OnUserAdded {
+    userAdded {
+      id
+      name
+      email
+    }
+  }
+`;
+```
 
 ### Use of Xcode in RN development
 - iOS Build & Compilation: Compiles your React Native code into an iOS app.
