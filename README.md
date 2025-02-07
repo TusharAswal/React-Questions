@@ -1613,6 +1613,43 @@ const { data, loading, error, unsubscribe } = useSubscription(NEW_MESSAGE_SUBSCR
 - const [getUserProfile, { loading, error, data }] = useLazyQuery(GET_USER_PROFILE);
 - const { data, loading, error } = useSubscription(MESSAGE_RECEIVED);
 
+
+### Use of Xcode in RN development
+- iOS Build & Compilation: Compiles your React Native code into an iOS app.
+- Simulator: Runs and tests your app on iOS devices.
+- Code Signing: Required to deploy and test on a physical iPhone.
+- Native Debugging: Helps debug native iOS code and performance issues.
+- App Store Deployment: Required for submitting apps to the App Store.
+- For adding deeplinks to the application
+- For adding notifications to the application
+
+### Native module creation iOS
+- Create a New Swift/Objective-C Class & write the Native Module Code providing the name of module
+- Use RCT_EXPORT_MODULE() to expose the module to React Native. RCT_EXPORT_METHOD exposes methods to JavaScript
+- Link the Native Module If you're using Swift, by creating a .h file
+- Import the module from NativeModules and Use
+
+### Deep linking iOS
+- Using react navigation define linking config
+```javascript
+const linking = {
+  prefixes: ['myapp://', 'https://myapp.com'],
+  config: {
+    screens: {
+      Home: 'home',
+      Details: 'details/:id',
+    },
+  },
+};
+```
+- Pass this config to NavigationContainer
+```javascript
+<NavigationContainer linking={linking}/>
+```
+- Make modifications to Info.plist to add relevent URL schemes
+- Modify AppDelegate.m to handle deeplinks
+- Run command to execute URL, open app if present
+  
 ### IBM
 - Maximum storage that html5 provides is **5 MB**
 - **<mark>** is used to hightlight text in HTML
