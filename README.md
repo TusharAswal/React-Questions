@@ -998,6 +998,74 @@ console.log(obj.name); // Output: "Doe" (the original object is changed)
 ```
 
 ## TypeScript
+**Utility Types in TypeScript**
+TypeScript provides utility types to modify existing types in a reusable way. 
+- Partial<T> – Makes All Properties Optional
+```typescript
+type User = {
+  id: number;
+  name: string;
+  email: string;
+};
+type PartialUser = Partial<User>;
+```
+- Required<T> – Makes All Properties Required
+```typescript
+type OptionalUser = {
+  id?: number;
+  name?: string;
+  email?: string;
+};
+
+type RequiredUser = Required<OptionalUser>;
+```
+
+- Readonly<T> – Makes All Properties Read-Only
+```typescript
+type ReadonlyUser = Readonly<User>;
+// Equivalent to:
+type ReadonlyUser = {
+  readonly id: number;
+  readonly name: string;
+  readonly email: string;
+};
+```
+- Record<K, T> – Creates an Object Type with Fixed Keys
+```typescript
+type UserRoles = Record<"admin" | "editor" | "viewer", boolean>;
+// Equivalent to:
+type UserRoles = {
+  admin: boolean;
+  editor: boolean;
+  viewer: boolean;
+};
+```
+- Pick<T, K> – Selects Specific Properties
+```typescript
+type UserPreview = Pick<User, "id" | "name">;
+// Equivalent to:
+type UserPreview = {
+  id: number;
+  name: string;
+};
+```
+- Omit<T, K> – Removes Specific Properties
+```typescript
+type UserWithoutEmail = Omit<User, "email">;
+// Equivalent to:
+type UserWithoutEmail = {
+  id: number;
+  name: string;
+};
+```
+- Exclude<T, U> – Removes Union Members
+```typescript
+type Status = "active" | "inactive" | "banned";
+type ActiveStatus = Exclude<Status, "banned">;
+// Equivalent to:
+type ActiveStatus = "active" | "inactive";
+```
+
 ### Interface vs. Type
 - **Interface**: In TypeScript, an interface is a structure that defines the shape of an object. It allows you to specify the types of properties and methods that an object should have, without providing the actual implementation.
 ```typescript
