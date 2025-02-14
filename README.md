@@ -499,6 +499,7 @@ let a = 5, b = 10;
 [a, b] = [b, a];
 ```
 ### Call,Apply,Bind (Function Context Methods or Function Binding Methods in JavaScript)
+- The first parameter in call, apply, and bind is called the context or thisArg. It determines what this refers to when the function is executed.
 ```javascript
 const person = {
   firstName: 'John',
