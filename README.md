@@ -5,7 +5,7 @@ Currying is a functional programming technique where a function that takes multi
 - In below example curring become useful if finalPrice or tax remain same for multipe items. Then only extra function be used.
 This become more important if the data (price/tax) are large obj they then dont need to be sent again and again, like we do in multi param fn.
 ```javascript
-function finalPrice(price){
+function defaultPrice(price){
     return function(tax){
         return function(extraCharge){
             return price+tax+extraCharge
@@ -13,12 +13,13 @@ function finalPrice(price){
     }
 }
 // Calculating price for item A
-const priceA=finalPrice(10)
+const priceA=defaultPrice(10)
 const taxA=priceA(10)
 const extraA=taxA(10)
 console.log("Price for A",extraA)
+
 // Calculating price for item B
-const priceB=finalPrice(25)
+const priceB=defaultPrice(25)
 const taxB=priceB(5)
 const extraB=taxB(7)
 console.log("Price for B",extraB)
