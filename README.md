@@ -1757,7 +1757,68 @@ const linking = {
 - Make modifications to Info.plist to add relevent URL schemes
 - Modify AppDelegate.m to handle deeplinks
 - Run command to execute URL, open app if present
-  
+
+### Amazone AWS
+**Setting Up AWS Amplify in a React Native Project**
+- Step 1: Install AWS Amplify Packages
+- Step 2: Configure Amplify in Your App, **aws-exports.js** is auto-generated when you set up your Amplify project.
+```javascript
+import Amplify from 'aws-amplify';
+import awsconfig from './aws-exports';
+Amplify.configure(awsconfig);
+```
+- Step 3: Add Authentication to Your App (Cognito)
+  - amplify add auth // Add auth and follow CLI instructions
+  - amplify push // Deploy auth
+- Step 4: Use Amplify Authentication in React Native
+```javascript
+import { Auth } from 'aws-amplify';
+Auth.signUp({username,password,attributes: {...}});
+```
+- Step 5: Add an API (GraphQL or REST)
+  - amplify add api (To enable APIS)
+  - amplify push (To deploy)
+```javascript
+import { API } from 'aws-amplify';
+//Rest API
+API.get('myApiName', '/items')
+
+//GraphQL
+import { API, graphqlOperation } from 'aws-amplify';
+API.graphql(graphqlOperation(`QUERY_NAME_HERE`));
+```
+-  Step 6:Storing & Retrieving Files with Amazon S3
+  - amplify add storage
+  - amplify push
+```javascript
+import { Storage } from 'aws-amplify';
+Storage.put('example.png', file);
+Storage.get('example.png');
+```
+- Step 7:Real-Time Data with AWS AppSync
+```javascript
+import { API, graphqlOperation } from 'aws-amplify';
+API.graphql(graphqlOperation(`QUERY_NAME_HERE`)).subscribe({
+  next: (eventData) => {
+    console.log('RESPONSE', eventData.value.data.onCreateTodo);
+  },
+  error: (error) => {
+    console.error('ERROR', error);
+  },
+});
+```
+
+### Socket.io
+```javascript
+import { io } from 'socket.io-client';
+export const socket = io('http://192.168.0.10:3000'); 
+socket.connected //To check if socket is connected
+socket.on('connect', ()=>{"CALLED_ON_CONNECTION"}); // 
+socket.on('disconnect', ()=>{"CALLED_ON_DISCONNECT"});
+// Disconnecting socket and removing listner
+socket.off('connect', ()=>{"SAME_FN_AS_CONNECT"});
+socket.off('disconnect', "SAME_FN_AS_DISCONNECT");
+```
 ### IBM
 - Maximum storage that html5 provides is **5 MB**
 - **<mark>** is used to hightlight text in HTML
