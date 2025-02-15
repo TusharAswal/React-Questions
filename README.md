@@ -1813,11 +1813,14 @@ API.graphql(graphqlOperation(`QUERY_NAME_HERE`)).subscribe({
 import { io } from 'socket.io-client';
 export const socket = io('http://192.168.0.10:3000'); 
 socket.connected //To check if socket is connected
-socket.on('connect', ()=>{"CALLED_ON_CONNECTION"}); // 
+socket.on('connect', ()=>{"CALLED_ON_CONNECTION"});
 socket.on('disconnect', ()=>{"CALLED_ON_DISCONNECT"});
+socket.on('customName',()=>{"RESPONSE"})
 // Disconnecting socket and removing listner
 socket.off('connect', ()=>{"SAME_FN_AS_CONNECT"});
 socket.off('disconnect', "SAME_FN_AS_DISCONNECT");
+socket.on('customName',()=>{"REMOVE_LISTNER"})
+
 ```
 ### IBM
 - Maximum storage that html5 provides is **5 MB**
