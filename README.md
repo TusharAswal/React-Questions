@@ -1768,16 +1768,16 @@ import awsconfig from './aws-exports';
 Amplify.configure(awsconfig);
 ```
 - Step 3: Add Authentication to Your App (Cognito)
-  - amplify add auth // Add auth and follow CLI instructions
-  - amplify push // Deploy auth
+  - **amplify add auth** // Add auth and follow CLI instructions
+  - **amplify push** // Deploy auth
 - Step 4: Use Amplify Authentication in React Native
 ```javascript
 import { Auth } from 'aws-amplify';
 Auth.signUp({username,password,attributes: {...}});
 ```
 - Step 5: Add an API (GraphQL or REST)
-  - amplify add api (To enable APIS)
-  - amplify push (To deploy)
+  - **amplify add api** (To enable APIS)
+  - **amplify push** (To deploy)
 ```javascript
 import { API } from 'aws-amplify';
 //Rest API
@@ -1788,8 +1788,8 @@ import { API, graphqlOperation } from 'aws-amplify';
 API.graphql(graphqlOperation(`QUERY_NAME_HERE`));
 ```
 -  Step 6:Storing & Retrieving Files with Amazon S3
-  - amplify add storage
-  - amplify push
+  - **amplify add storage**
+  - **amplify push**
 ```javascript
 import { Storage } from 'aws-amplify';
 Storage.put('example.png', file);
