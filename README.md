@@ -1221,6 +1221,7 @@ function infiniteLoop(): never {
 }
 ```
 ### How do you define and use enums in TypeScript?
+- Enums (enumerations) in TypeScript are a way to define a set of named constants. They make code more readable and help avoid using magic numbers or hardcoded string values.
 ```typescript
 enum Direction {
   Up,    // 0
