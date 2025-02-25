@@ -862,6 +862,52 @@ const [state, dispatch] = useReducer(reducer, initialState);
 | **Request Cancellation**          | Yes, via `CancelToken`                 | Yes, via `AbortController`             |
 | **API**                           | Can be used with `POST`, `GET`, etc.   | Can be used with `POST`, `GET`, etc.    |
 
+### Use Cases for Axios Interceptors
+- Adding Authentication Tokens Automatically
+```javascript
+// Add request interceptor
+api.interceptors.request.use(
+  (config) => {
+    const token = "your-auth-token"; // Replace with actual token
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+```
+- Handling Global Error Responses
+```javascript
+api.interceptors.response.use(
+  (response) => response, // Pass successful response
+  (error) => {
+    if (error.response) {
+      if (error.response.status === 401) {
+        console.error("Unauthorized! Redirecting to login...");
+        // Redirect to login page
+      } else if (error.response.status === 500) {
+        console.error("Server error! Please try again later.");
+      }
+    }
+    return Promise.reject(error);
+  }
+);
+```
+- Retrying Failed Requests
+```javascript
+api.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    if (error.code === "ECONNABORTED" || !error.response) {
+      console.log("Retrying request...");
+      return api.request(error.config); // Retry the request
+    }
+    return Promise.reject(error);
+  }
+);
+```
+
 ### Creating object in JS
 - Using Object Literal
 ```javascript
