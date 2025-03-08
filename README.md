@@ -1854,6 +1854,7 @@ API.graphql(graphqlOperation(`QUERY_NAME_HERE`)).subscribe({
   },
 });
 ```
+### Sample fetch usage
 
 ### Socket.io
 ```javascript
