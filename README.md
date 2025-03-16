@@ -1896,6 +1896,7 @@ https://github.com/lydiahallie/javascript-questions
 9.  https://www.linkedin.com/company/3pillar/life/29c30451-4deb-4a8e-bd49-0628a7b9100f/
 10. https://www.linkedin.com/company/involvedsolutions/jobs/
 11. https://www.linkedin.com/company/insight-global/life/c8a8bc97-8798-403c-a1eb-6f80b765f099/
+12. https://www.linkedin.com/company/outsourcedglobal/life/candidates/
 
 ### Onsite Job Companies
 1. https://www.linkedin.com/company/kpmg/posts/?feedView=all
