@@ -1868,7 +1868,33 @@ socket.on('customName',()=>{"RESPONSE"})
 socket.off('connect', ()=>{"SAME_FN_AS_CONNECT"});
 socket.off('disconnect', "SAME_FN_AS_DISCONNECT");
 socket.on('customName',()=>{"REMOVE_LISTNER"})
+```
 
+### Sample fetch
+```javascript
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/posts")
+      .then((response) => response.json())
+      .then((json) => {
+        setData(json);
+        setLoading(false);
+      })
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
+```
+
+### Code
+```javascript
+const sample = async () => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve("TUSHAR");  // ✅ Resolve the promise after 2 seconds
+        }, 2000);
+    });
+};
+
+let value = await sample();
+console.log(value); // ✅ "TUSHAR" (after 2 seconds)
 ```
 ### IBM
 - Maximum storage that html5 provides is **5 MB**
