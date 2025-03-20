@@ -25,6 +25,10 @@ const priceWithTaxB = basePriceB(5);
 const finalPriceB = priceWithTaxB(7);
 console.log("Price for B:", finalPriceB);
 ```
+### Are Currying and Closures Related? 🤔
+- Currying uses closures to store arguments and return new functions.
+- A closure remembers variables from its parent scope, allowing currying to work.
+- Not all closures are currying, but all currying functions use closures.
 
 ## Prototype Chain
 In JavaScript, the prototype chain allows objects to inherit properties and methods from other objects.
