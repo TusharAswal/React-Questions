@@ -1169,8 +1169,6 @@ API.graphql(graphqlOperation(`QUERY_NAME_HERE`)).subscribe({
   },
 });
 ```
-### Sample fetch usage
-
 ### Socket.io
 ```javascript
 import { io } from 'socket.io-client';
@@ -1530,7 +1528,6 @@ printValue(42);      // Number value: 52
 printValue(true);    // Boolean value: True
 ```
 ### Array vs Tuple
-# TypeScript: Tuples vs Arrays
 
 | Feature          | Tuple                                        | Array                                        |
 |------------------|----------------------------------------------|----------------------------------------------|
