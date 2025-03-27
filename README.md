@@ -1,9 +1,9 @@
-# JavaScript Concepts and Examples
+
+# Javascript Questions
 
 ### Currying
 Currying is a functional programming technique where a function that takes multiple arguments is transformed into a sequence of functions, each taking a single argument.
-- In below example curring become useful if finalPrice or tax remain same for multipe items. Then only extra function be used.
-This become more important if the data (price/tax) are large obj they then dont need to be sent again and again, like we do in multi param fn.
+In below example curring become useful if finalPrice or tax remain same for multipe items. Then only extra function be used. This become more important if the data (price/tax) are large obj they then dont need to be sent again and again, like we do in multi param fn.
 ```javascript
 function calculateBasePrice(price) {
     return function applyTax(tax) {
@@ -25,15 +25,29 @@ const priceWithTaxB = basePriceB(5);
 const finalPriceB = priceWithTaxB(7);
 console.log("Price for B:", finalPriceB);
 ```
+
+### Closures
+A closure is a function that "remembers" variables from its outer scope even after the outer function has finished executing.
+```javascript
+function outer() {
+    const a = 10;
+    return function inner() {
+        console.log(a); // Uses `a` from outer scope.
+    };
+}
+```
+Drawbacks of Closures in JavaScript:
+- **Increased Memory Usage:** Closures retain references to their outer scope, preventing garbage collection from freeing up memory. This can lead to memory leaks, especially in long-running applications.
+- **Debugging Complexity:** Since closures maintain references to variables even after their parent function has executed, it can be hard to track values and debug issues.
+- **Potential Performance Issues:** Closures can slow down applications if they unnecessarily hold large objects or frequent updates.
+
 ### Are Currying and Closures Related? 🤔
 - Currying uses closures to store arguments and return new functions.
 - A closure remembers variables from its parent scope, allowing currying to work.
 - Not all closures are currying, but all currying functions use closures.
 
-## Prototype Chain
+### Prototype Chain
 In JavaScript, the prototype chain allows objects to inherit properties and methods from other objects.
-
-### Example:
 ```javascript
 // Creating a simple object
 let animal = {
@@ -42,7 +56,6 @@ let animal = {
       console.log("Some sound");
     }
 };
-
 // Creating another object that inherits from 'animal'
 let dog = Object.create(animal);
 dog.breed = "Labrador";
@@ -52,15 +65,11 @@ console.log(dog.species);  // "Mammal" (inherited from animal)
 dog.sound();  // "Some sound" (inherited from animal)
 console.log(dog.breed);  // "Labrador" (own property of dog)
 ```
-
-### Prototype Chain Flow:
+Prototype Chain Flow:
 - When accessing `dog.species`, JavaScript looks for `species` on `dog`. If not found, it checks the prototype (`animal`).
 - When calling `dog.sound()`, JavaScript searches the prototype chain for the method.
 - `dog.breed` is found directly on `dog`, so no prototype lookup is needed.
 
----
-
-## Array Methods
 ### Slice
 **slice(startIndex, endIndex)**:
 The `slice()` method extracts a shallow copy of a portion of an array without modifying the original array.
@@ -78,10 +87,9 @@ let y=x.splice(0,3)
 console.log(y) //Returns [ 'A', 'B', 'C' ]
 console.log(x) // Returns [ 'D', 'E', 'F', 'G' ]
 ```
----
 
-## Promises
-### Promise.all
+### Promises
+**Promise.all:**
 Waits for all promises to resolve or for any to reject.
 ```javascript
 const promise1 = new Promise((resolve, reject) => setTimeout(resolve, 1000, "First"));
@@ -95,7 +103,7 @@ Promise.all([promise1, promise2, promise3])
     console.log(error); // If any promise rejects, the entire promise chain is rejected
   });
 ```
-### Promise.allSettled
+**Promise.allSettled:**
 Waits for all promises to settle (resolve or reject) and returns an array of results.
 ```javascript
 const promise1 = new Promise((resolve, reject) => setTimeout(resolve, 1000, "First"));
@@ -112,7 +120,7 @@ Promise.allSettled([promise1, promise2, promise3])
     // ]
   });
 ```
-### Promise.race
+**Promise.race:**
 Promise.race takes an array of promises and returns a single promise that resolves or rejects as soon as any one of the input promises resolves or rejects.
 ```javascript
 const promise1 = new Promise((resolve, reject) => setTimeout(resolve, 1000, "First"));
@@ -128,7 +136,7 @@ Promise.race([promise1, promise2, promise3])
   });
 ```
 
-### Promise.any
+**Promise.any:**
 Resolves as soon as the first promise fulfills or throws an `AggregateError` if all reject.
 ```javascript
 const promise1 = new Promise((resolve, reject) => setTimeout(reject, 1000, "Error"));
@@ -143,25 +151,9 @@ Promise.any([promise1, promise2, promise3])
     console.log(error); // If all promises reject, this will catch the error
   });
 ```
----
 
-## InteractionManager (React Native)
-Used for managing animations or high-priority UI tasks.
-
-```javascript
-InteractionManager.runAfterInteractions(() => {
-    console.log('Heavy computation starts');
-    const fetchedData = Array.from({ length: 100000 }, (_, i) => i + 1);
-    setData(fetchedData);
-    setLoading(false);
-    console.log('Heavy computation ends');
-});
-```
-
----
-
-## JavaScript Scopes
-### `var`, `let`, `const`
+### JavaScript Scopes
+**`var`, `let`, `const`:**
 - **`var`**: Function-scoped.
 - **`let` and `const`**: Block-scoped.
 - **Hoisting**:
@@ -189,10 +181,8 @@ function example() {
 example();
 // console.log(x, y, z); // ReferenceError: x is not defined
 ```
----
-
-## Shallow Copy vs. Deep Copy
-### Shallow Copy
+### Shallow Copy vs. Deep Copy
+**Shallow Copy:**
 Copies only the first level of properties. Nested objects/arrays still reference the original structure.
 - Using Spread Operator (...)
 ```javascript
@@ -204,7 +194,7 @@ const shallowCopy = { ...obj };
 const obj = { a: 1, b: { c: 2 } };
 const shallowCopy = Object.assign({}, obj);
 ```
-### Deep Copy
+**Deep Copy:**
 Creates a completely independent copy of the original object/array.
 - Using structuredClone (Modern and Recommended)
 ```javascript
@@ -215,33 +205,300 @@ const deepCopy = structuredClone(obj);
 ```javascript
 const deepCopy = JSON.parse(JSON.stringify(original));
 ```
----
+### Event Loop and Task Queue
+The Event Loop is a mechanism that enables JavaScript to handle asynchronous tasks, ensuring non-blocking execution of code.
+- JavaScript is single-threaded, meaning it can execute only one task at a time.
+- The Event Loop monitors the Call Stack and the Task Queue (or Microtask Queue) to determine what should run next.
+- It continuously checks if the Call Stack is empty, and if so, it pushes tasks from the Task Queue or Microtask Queue onto the Call Stack for execution.
+  
+### Synchronous(Callstack) tasks vs. Microtasks vs. Macrotasks
+- **Synchronous**: All loops like while,do while and for are synchronous and are executed immediately.
+- **Microtasks**: Promises, MutationObserver callbacks.
+- **Macrotasks**: `setTimeout`, `setInterval`, DOM events.
+- **Priority**: Synchronous > Microtasks > Macrotasks.
 
-## JavaScript Closures
-A closure is a function that "remembers" variables from its outer scope even after the outer function has finished executing.
-
-### Example:
 ```javascript
-function outer() {
-    const a = 10;
-    return function inner() {
-        console.log(a); // Uses `a` from outer scope.
-    };
+console.log(1); // Printed first, this is a synchronous operation and will be executed immediately in the current call stack.
+
+setTimeout(() => console.log(2), 0);// Printed last as this is a macro task
+
+Promise.resolve().then(() => console.log(3)); // Microtask have higher priority than macrotasks, so it will execute after the current synchronous code
+
+console.log(4); // Printed second, this is a synchronous operation and will be executed immediately in the current call stack.
+
+// Final Output: 1, 4, 3, 2
+```
+### Swapping Variables Without Temp Variable
+```javascript
+let a = 5, b = 10;
+[a, b] = [b, a];
+```
+### Call,Apply,Bind (Function Context Methods or Function Binding Methods in JavaScript)
+- The first parameter in call, apply, and bind is called the context or thisArg. It determines what this refers to when the function is executed.
+```javascript
+const person = {
+  firstName: 'John',
+  lastName: 'Doe'
+};
+```
+**Call:** The call method allows you to call a function with a specified this value and individual arguments.
+```javascript
+//call(thisArg, arg1, arg2, /* …, */ argN)
+function fullName(city, country) {
+  console.log(`${this.firstName} ${this.lastName}, ${city}, ${country}`);
+}
+fullName.call(person, 'New York', 'USA'); // Output: John Doe, New York, USA
+```
+**Apply:** The apply method is similar to call, but it accepts the arguments as an array (or array-like object) instead of individual arguments.
+```javascript
+function fullName(city, country) {
+  console.log(`${this.firstName} ${this.lastName}, ${city}, ${country}`);
+}
+fullName.apply(person, ['New York', 'USA']); // Output: John Doe, New York, USA
+```
+**Bind:** The bind method creates a new function that, when called, has its this value set to the provided value and prepends any provided arguments to the argument list.
+```javascript
+function fullName(city, country) {
+  console.log(`${this.firstName} ${this.lastName}, ${city}, ${country}`);
+}
+const boundFullName = fullName.bind(person, 'New York');
+boundFullName('USA'); // Output: John Doe, New York, USA
+```
+
+## Generator Functions
+Generator functions are a special type of function in JavaScript that allows pausing and resuming its execution during runtime.
+- next() is used to pass down value for yeild in an generator function.
+- yield is used to pause a function waiting for a value from next()
+
+```javascript
+function* generatorExample() {
+/*
+Step 1.1:
+Pauses here first waiting for a value for first yeild
+*/
+  const firstValue = yield 'First yield paused'; 
+/*
+Step 2.1:
+Pauses in above, but because value is now present in next() its successfully executed and console is printed
+*/
+  console.log('First value received:', firstValue);
+  return 'Generator complete!';
+}
+
+const gen = generatorExample();
+/* Step 1:
+Calls a generator function without any value
+returns { value: 'First yield paused', done: false }
+*/
+console.log(gen.next()) 
+/* Step 2:
+This time a value is passed to the generator function
+*/
+console.log(gen.next('Value for first yield').value); 
+```
+### Copying by refrence
+- Here the value of c changes if changes are made to d or c as they share same refrence in memory
+```javascript
+let c = { greeting: 'Hey!' };
+let d;
+d = c; // Both c and d point to the same object in memory
+c.greeting = 'Hello';
+console.log(d.greeting); // Outputs: 'Hello'
+```
+- If object is copied using {...} or rest operator only the top most values are copied independently all the nested values are copied by refrence
+```javascript
+let c = { greeting: 'Hey!', details: { age: 25 } };
+let d;
+d = { ...c }; // Shallow copy of c
+c.greeting = 'Hello';
+c.details.age = 30; // Changes the nested object
+console.log(d.greeting); // Outputs: 'Hey!' (independent copy of top-level property)
+console.log(d.details.age); // Outputs: 30 (nested object is still shared by reference)
+```
+### forEach vs Map
+| **Feature**           | **`forEach`**                            | **`map`**                                |
+|-----------------------|-----------------------------------------|-----------------------------------------|
+| **Purpose**           | For side effects (e.g., logging)       | To transform and create a new array     |
+| **Return Value**      | `undefined`                            | A new array                             |
+| **Mutability**        | Can modify the original array or external state | Does not modify the original array      |
+| **Chaining**          | Not chainable                          | Chainable                               |
+| **Use Case**          | Performing an action per element       | Transforming an array                   |
+
+### Object.assign() vs. Object.create()
+| **Feature**              | **`Object.assign()`**                       | **`Object.create()`**                      |
+|--------------------------|--------------------------------------------|-------------------------------------------|
+| **Purpose**              | Copies properties from source to target   | Creates a new object with a specific prototype |
+| **Mutates Data**         | **Yes** (modifies the target object)       | **No** (creates a new object)             |
+| **Prototype Inheritance**| Does not handle prototype inheritance      | Creates an object with inherited prototype |
+| **Return Value**         | The modified target object                 | A new object                              |
+
+### Creating object in JS
+- Using Object Literal
+```javascript
+const person = {
+  name: "John",
+  age: 30,
+  greet: function () {
+    console.log(`Hello, my name is ${this.name}`);
+  }
+};
+console.log(person.name); // Output: John
+person.greet();           // Output: Hello, my name is John
+```
+-  Using Object.create()
+```javascript
+const prototypeObject = {
+  greet: function () {
+    console.log(`Hello, my name is ${this.name}`);
+  }
+};
+const person = Object.create(prototypeObject);
+person.name = "Jane";
+person.age = 25;
+person.greet(); // Output: Hello, my name is Jane
+```
+- Using a Constructor Function
+```javascript
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+  this.greet = function () {
+    console.log(`Hello, my name is ${this.name}`);
+  };
+}
+const person1 = new Person("Alice", 28);
+const person2 = new Person("Bob", 35);
+person1.greet(); // Output: Hello, my name is Alice
+person2.greet(); // Output: Hello, my name is Bob
+```
+- Using ES6 Classes
+```javascript
+class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+  greet() {
+    console.log(`Hello, my name is ${this.name}`);
+  }
+}
+const person1 = new Person("Charlie", 40);
+const person2 = new Person("Diana", 32);
+person1.greet(); // Output: Hello, my name is Charlie
+person2.greet(); // Output: Hello, my name is Diana
+```
+- Using Object Constructor
+```javascript
+const person = new Object();
+person.name = "Eve";
+person.age = 22;
+person.greet = function () {
+  console.log(`Hello, my name is ${this.name}`);
+};
+console.log(person.name); // Output: Eve
+person.greet();           // Output: Hello, my name is Eve
+```
+- Using JSON.parse
+```javascript
+const person = JSON.parse('{"name": "Hank", "age": 20}');
+console.log(person.name); // Output: Hank
+console.log(person.age);  // Output: 20
+```
+
+### Primitive Types: Pass-by-Value
+When you pass a primitive type (e.g., string, number, boolean, etc.) to a function, JavaScript passes a copy of the value. Changes made to the parameter inside the function do not affect the original variable.
+```javascript
+let x = 10;
+function modifyValue(y) {
+  y = 20; // This changes the copy of x, not the original x
+}
+modifyValue(x);
+console.log(x); // Output: 10 (x is unchanged)
+```
+### Non-Primitive Types: Pass-by-Reference-Like Behavior
+For objects, arrays, and functions (non-primitive types), JavaScript passes a reference to the value in memory. This means the function gets access to the same object in memory, so modifying the object inside the function affects the original object.
+However, if you reassign the parameter to a new object, the original object remains unchanged because the parameter now points to a new reference.
+
+```javascript
+let obj = { name: "John" };
+function modifyObject(o) {
+  o.name = "Doe"; // Modifies the original object
+}
+modifyObject(obj);
+console.log(obj.name); // Output: "Doe" (the original object is changed)
+```
+
+### Function Composition
+Function Composition is the process of combining two or more functions to produce a new function or perform a series of operations. It allows you to build complex operations by combining simpler ones.
+- Functions are executed from right to left (similar to mathematical composition).
+```javascript
+const add = (x) => x + 2;
+const multiply = (x) => x * 3;
+// Compose two functions
+const compose = (f, g) => {
+  return (x) => {
+    return f(g(x));
+  };
+};
+const addThenMultiply = compose(multiply, add);
+console.log(addThenMultiply(5)); // (5 + 2) * 3 = 21
+```
+# Understanding Time Complexity in JavaScript
+### Constant Time - O(1)
+The operation does not depend on the input size.
+```javascript
+function getFirstElement(arr) {
+  return arr[0]; // Executes in constant time
 }
 ```
-**Drawbacks of closures**
 
-1. Increased Memory Usage:
-- A closure retains references to variables in its lexical scope (even after the function execution completes).
-- If these variables are large objects or arrays, they stay in memory as long as the closure exists, which could cause memory leaks.
-2. Memory Leaks:
-- Closures can unintentionally prevent variables from being garbage collected because of retained references, leading to memory leaks.
-3. Debugging Complexity:
-- Variables can come from multiple levels of the scope chain
-- When closures are deeply nested, understanding where a variable comes from can be difficult.
----
+### Linear Time – O(n)
+The execution time grows directly proportional to the input size.
+```javascript
+function printArray(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    console.log(arr[i]); // Executes once for each element
+  }
+}
+```
 
-## React Concepts
+### Quadratic Time – O(n²)
+Nested loops result in n * n iterations.
+```javascript
+function printPairs(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = 0; j < arr.length; j++) {
+      console.log(arr[i], arr[j]); // Executes n * n times
+    }
+  }
+}
+```
+
+### Logarithmic Time – O(log n)
+The search space is halved with each iteration.
+```javascript
+function binarySearch(arr, target) {
+  let start = 0, end = arr.length - 1;
+  while (start <= end) {
+    let mid = Math.floor((start + end) / 2);
+    if (arr[mid] === target) return mid;
+    if (arr[mid] < target) start = mid + 1;
+    else end = mid - 1;
+  }
+  return -1;
+}
+```
+### Exponential Time – O(2ⁿ)
+The execution time doubles with each additional input.
+```javascript
+function fibonacci(n) {
+  if (n <= 1) return n;
+  return fibonacci(n - 1) + fibonacci(n - 2); // Recursively calls itself twice
+}
+```
+
+
+# React/React Native Questions
 ### Higher-Order Component (HOC)
 - An advanced technique for reusing component logic.
 - Adding common behavior (e.g., authentication, logging).
@@ -322,7 +579,6 @@ const UserProfile = () => {
   );
 };
 ```
-
 ### React.memo vs memo vs useCallbacks
 | Feature                | `React.memo`                                   | `useMemo`                                        | `useCallback`                                   |
 |------------------------|-----------------------------------------------|-------------------------------------------------|-------------------------------------------------|
@@ -375,7 +631,6 @@ function Modal({ message }) {
     );
 }
 ```
-
 ### Pure components
 - A pure component re-renders only when its props or state change.
 - Created using **React.PureComponent** in class based compoenent and **React.memo** in a functional based component
@@ -427,35 +682,7 @@ const CustomButton = forwardRef((props, ref) => {
 export default CustomButton;
 ```
 
-
----
-
-## Event Loop and Task Queue
-The Event Loop is a mechanism that enables JavaScript to handle asynchronous tasks, ensuring non-blocking execution of code.
-- JavaScript is single-threaded, meaning it can execute only one task at a time.
-- The Event Loop monitors the Call Stack and the Task Queue (or Microtask Queue) to determine what should run next.
-- It continuously checks if the Call Stack is empty, and if so, it pushes tasks from the Task Queue or Microtask Queue onto the Call Stack for execution.
-  
-### Synchronous(Callstack) tasks vs. Microtasks vs. Macrotasks
-- **Synchronous**: All loops like while,do while and for are synchronous and are executed immediately.
-- **Microtasks**: Promises, MutationObserver callbacks.
-- **Macrotasks**: `setTimeout`, `setInterval`, DOM events.
-- **Priority**: Synchronous > Microtasks > Macrotasks.
-
-```javascript
-console.log(1); // Printed first, this is a synchronous operation and will be executed immediately in the current call stack.
-
-setTimeout(() => console.log(2), 0);// Printed last as this is a macro task
-
-Promise.resolve().then(() => console.log(3)); // Microtask have higher priority than macrotasks, so it will execute after the current synchronous code
-
-console.log(4); // Printed second, this is a synchronous operation and will be executed immediately in the current call stack.
-
-// Final Output: 1, 4, 3, 2
-```
----
-
-## SSL Pinning (React Native)
+### SSL Pinning (React Native)
 A security measure to mitigate MITM attacks.
 ```javascript
 import axios from 'axios';
@@ -484,87 +711,6 @@ const axiosInstance = axios.create({
 | **Flexibility**             | Highly customizable; supports advanced patterns like middleware, selectors, etc. | Limited to React's functionality and API. |
 | **When to Use**             | Large apps with complex, shared, and frequently changing state. | Small apps or when you need to avoid prop drilling for simpler state. |
 
----
-
-## Generic Function Example (TypeScript)
-In TypeScript, generic functions allow you to write functions that can work with any type, while still enforcing type safety. Generics are a powerful feature to make your code reusable and flexible.
-```typescript
-function identity<T>(value: T): T {
-    return value;
-}
-const numberValue = identity<number>(42);
-const stringValue = identity<string>("Hello, Generics!");
-```
-
----
-### Swapping Variables Without Temp Variable
-```javascript
-let a = 5, b = 10;
-[a, b] = [b, a];
-```
-### Call,Apply,Bind (Function Context Methods or Function Binding Methods in JavaScript)
-- The first parameter in call, apply, and bind is called the context or thisArg. It determines what this refers to when the function is executed.
-```javascript
-const person = {
-  firstName: 'John',
-  lastName: 'Doe'
-};
-```
-1. **Call:** The call method allows you to call a function with a specified this value and individual arguments.
-```javascript
-//call(thisArg, arg1, arg2, /* …, */ argN)
-function fullName(city, country) {
-  console.log(`${this.firstName} ${this.lastName}, ${city}, ${country}`);
-}
-fullName.call(person, 'New York', 'USA'); // Output: John Doe, New York, USA
-```
-2. **Apply:** The apply method is similar to call, but it accepts the arguments as an array (or array-like object) instead of individual arguments.
-```javascript
-function fullName(city, country) {
-  console.log(`${this.firstName} ${this.lastName}, ${city}, ${country}`);
-}
-fullName.apply(person, ['New York', 'USA']); // Output: John Doe, New York, USA
-```
-3. **Bind:** The bind method creates a new function that, when called, has its this value set to the provided value and prepends any provided arguments to the argument list.
-```javascript
-function fullName(city, country) {
-  console.log(`${this.firstName} ${this.lastName}, ${city}, ${country}`);
-}
-const boundFullName = fullName.bind(person, 'New York');
-boundFullName('USA'); // Output: John Doe, New York, USA
-```
-
-## Generator Functions
-Generator functions are a special type of function in JavaScript that allows pausing and resuming its execution during runtime.
-- next() is used to pass down value for yeild in an generator function.
-- yield is used to pause a function waiting for a value from next()
-
-```javascript
-function* generatorExample() {
-/*
-Step 1.1:
-Pauses here first waiting for a value for first yeild
-*/
-  const firstValue = yield 'First yield paused'; 
-/*
-Step 2.1:
-Pauses in above, but because value is now present in next() its successfully executed and console is printed
-*/
-  console.log('First value received:', firstValue);
-  return 'Generator complete!';
-}
-
-const gen = generatorExample();
-/* Step 1:
-Calls a generator function without any value
-returns { value: 'First yield paused', done: false }
-*/
-console.log(gen.next()) 
-/* Step 2:
-This time a value is passed to the generator function
-*/
-console.log(gen.next('Value for first yield').value); 
-```
 ### Increase performance in RN
 - Use FlatList or SectionList for Long Lists
 - Memoization Using React.memo, useMemo, and useCallback
@@ -581,147 +727,11 @@ navigation.dispatch(StackActions.replace('NewScreen', { /* params */ }));
 ```
 ### Hermes
 - Hermes is a lightweight, high-performance JavaScript engine designed by Meta (formerly Facebook) specifically for React Native apps
-**1. Improves Startup Time:**
+**Improves Startup Time:**
 Hermes uses Ahead of Time compilation(AOT), which compiles the JS bundle during build time instead of app runtime which the traditional JS engine(JavaScriptCore) do. JavaScriptCore used Just in Time compilation.
 
-**2. Reduces Memory Usage & Smaller App Size and Increases performance:**
+**Reduces Memory Usage & Smaller App Size and Increases performance:**
 Hermes minimizes memory usage & reduce app size by precompiling JS bundle into bytecode. Bytecode is smaller in size than traditional JS source code.
-
-### Key Testing Types (Jest)
-- Unit testing is a software testing technique that involves testing individual components or functions of an application in isolation to ensure they behave as expected.
-```javascript
-// utils/calculateSum.js
-export const calculateSum = (a, b) => a + b;
-
-// utils/calculateSum.test.js
-import { calculateSum } from './calculateSum';
-
-test('calculateSum adds numbers correctly', () => {
-  expect(calculateSum(2, 3)).toBe(5);
-});
-```
-
-- Component testing involves testing individual components of a user interface (UI) in isolation to ensure they function correctly.
-```javascript
-// components/Greeting.js
-import React from 'react';
-import { Text, View } from 'react-native';
-
-const Greeting = ({ name }) => (
-  <View>
-    <Text>Hello, {name}!</Text>
-  </View>
-);
-
-export default Greeting;
-```
-
-```javascript
-// components/Greeting.test.js
-import React from 'react';
-import { render } from '@testing-library/react-native';
-import Greeting from './Greeting';
-
-test('renders Greeting component with name', () => {
-  const { getByText } = render(<Greeting name="John" />);
-  expect(getByText('Hello, John!')).toBeTruthy();
-});
-```
-
-- Snapshot testing is a type of testing used to ensure that a component's UI does not change unexpectedly.
-```javascript
-// components/Button.js
-import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
-
-const Button = ({ label, onPress }) => (
-  <TouchableOpacity onPress={onPress}>
-    <Text>{label}</Text>
-  </TouchableOpacity>
-);
-
-export default Button;
-```
-```javascript
-// components/Button.test.js
-import React from 'react';
-import renderer from 'react-test-renderer';
-import Button from './Button';
-
-test('Button component snapshot', () => {
-  const tree = renderer.create(<Button label="Click me" onPress={() => {}} />).toJSON();
-  expect(tree).toMatchSnapshot();
-});
-```
-
-### Mocking Functions and API Calls
-```javascript
-// components/UserDetails.test.js
-import React from 'react';
-import { render, waitFor } from '@testing-library/react-native';
-import UserDetails from './UserDetails';
-
-jest.mock('./UserDetails', () => ({
-  fetchUser: jest.fn(() => Promise.resolve({ name: 'John Doe' })),
-}));
-
-test('renders user details after fetching data', async () => {
-  const { getByText } = render(<UserDetails />);
-  await waitFor(() => expect(getByText('John Doe')).toBeTruthy());
-});
-```
-### Running test cases with JEST
-- **jest**
-Runs all the test files in your project. By default, Jest looks for files with .test.js or .spec.js extensions in the __tests__ folder or files with these extensions anywhere in your project.
-
-- **jest --watch**
-Watches your files for changes and automatically reruns the tests when a file is saved. Useful during development to get instant feedback on your tests.
-
-- **jest --onlyFailures**
-Reruns only the tests that failed in the previous run. Useful for quickly debugging failures after running the full test suite.
-
-- **jest --coverage**
-Generates a test coverage report, showing which parts of your code are covered by tests. Outputs detailed information about the lines, functions, and branches covered.
-
-- **jest --updateSnapshot**
-Updates Jest snapshots for tests that use snapshot testing. Use this when your component output changes and you’re confident the new output is correct.
-
-# Copying by refrence
-- Here the value of c changes if changes are made to d or c as they share same refrence in memory
-```javascript
-let c = { greeting: 'Hey!' };
-let d;
-d = c; // Both c and d point to the same object in memory
-c.greeting = 'Hello';
-console.log(d.greeting); // Outputs: 'Hello'
-```
-- If object is copied using {...} or rest operator only the top most values are copied independently all the nested values are copied by refrence
-```javascript
-let c = { greeting: 'Hey!', details: { age: 25 } };
-let d;
-d = { ...c }; // Shallow copy of c
-c.greeting = 'Hello';
-c.details.age = 30; // Changes the nested object
-console.log(d.greeting); // Outputs: 'Hey!' (independent copy of top-level property)
-console.log(d.details.age); // Outputs: 30 (nested object is still shared by reference)
-```
-
-### forEach vs Map
-| **Feature**           | **`forEach`**                            | **`map`**                                |
-|-----------------------|-----------------------------------------|-----------------------------------------|
-| **Purpose**           | For side effects (e.g., logging)       | To transform and create a new array     |
-| **Return Value**      | `undefined`                            | A new array                             |
-| **Mutability**        | Can modify the original array or external state | Does not modify the original array      |
-| **Chaining**          | Not chainable                          | Chainable                               |
-| **Use Case**          | Performing an action per element       | Transforming an array                   |
-
-## Object.assign() vs. Object.create()
-| **Feature**              | **`Object.assign()`**                       | **`Object.create()`**                      |
-|--------------------------|--------------------------------------------|-------------------------------------------|
-| **Purpose**              | Copies properties from source to target   | Creates a new object with a specific prototype |
-| **Mutates Data**         | **Yes** (modifies the target object)       | **No** (creates a new object)             |
-| **Prototype Inheritance**| Does not handle prototype inheritance      | Creates an object with inherited prototype |
-| **Return Value**         | The modified target object                 | A new object                              |
 
 ### What is an Error Boundary in React?
 Error Boundaries are React components that catch JavaScript errors in their child component tree, log those errors, and display a fallback UI instead of crashing the entire application. They help prevent the app from breaking when an error occurs in a specific part of the UI.
@@ -731,26 +741,6 @@ Updates the state so the next render will show a fallback UI.
 componentDidCatch(error, info)
 Logs error information.
 
-### Basic Sum Function in TypeScript
-```javascript
-function sum(a: string | number, b: string | number): number {
-  // Convert both parameters to numbers if they are strings
-  const num1 = typeof a === 'string' ? parseFloat(a) : a;
-  const num2 = typeof b === 'string' ? parseFloat(b) : b;
-  return num1 + num2;
-}
-```
-
-# Generic functions typescript
-```javascript
-function identity<T>(arg: T): T {
-  return arg;
-}
-const result1 = identity(10);    // T inferred as number
-const result2 = identity('Hello'); // T inferred as string
-console.log(result1); // 10
-console.log(result2); // 'Hello'
-```
 ### Custom hooks
 Custom hooks always start with the prefix use, and they can use other built-in hooks like useState, useEffect, useContext, etc., within them.
 - Code Reusability: Avoid duplicating logic across components by centralizing common functionality.
@@ -772,26 +762,7 @@ Custom hooks always start with the prefix use, and they can use other built-in h
 | **Performance**            | More efficient for most cases as it doesn’t delay rendering.                  | May hurt performance if used unnecessarily because it delays the paint phase.                             |
 | **React Hook Type**        | Runs after the DOM is updated and the browser has completed rendering.         | Runs **before** the browser renders the next frame, ensuring DOM consistency before user sees the changes. |
 | **Typical Usage**          | - Fetching data.<br>- Subscribing/unsubscribing to events.<br>- Logging.        | - Measuring DOM size/position.<br>- Adding inline styles based on measurements.<br>- Synchronizing animations. |
-| **Example Scenario**       | Use for fetching data from an API.                                             | Use for recalculating layout or synchronizing animations.                                                 |
-
-### Hermes engine
-- Improves App Startup Time
-Hermes reduces app startup times by using an optimized bytecode format, which allows the JavaScript to load and execute faster compared to traditional JavaScript engines like V8 or JavaScriptCore.
-
-- Reduces Memory Usage
-It uses an optimized memory management system, which significantly lowers memory consumption, making it ideal for apps running on low-end devices.
-
-- Ahead-of-Time (AOT) Compilation
-JavaScript code is compiled into bytecode before the app is bundled. This eliminates the need for Just-in-Time (JIT) compilation at runtime, reducing overhead.
-
-- Smaller JavaScript Bundle Size
-Hermes compiles JavaScript code into an efficient bytecode format that is smaller than raw JavaScript, reducing the overall size of the app package.
-
-- Optimized Garbage Collection
-Hermes uses a memory-efficient garbage collection strategy designed for React Native apps, which improves runtime performance and responsiveness.
-
-- Cross-Platform Support
-Hermes is available for both Android and iOS platforms, making it a viable choice for improving performance across all devices.
+| **Example Scenario**       | Use for fetching data from an API.                                             | Use for recalculating layout or synchronizing animations.     
 
 ### Redux working
 - Dispatch Action
@@ -852,7 +823,7 @@ useReducer is a React hook used for managing state in components, especially whe
 ```javascript
 const [state, dispatch] = useReducer(reducer, initialState);
 ```
-# Features Comparison
+### Features Comparison
 
 | Feature                          | Axios                                  | Fetch                                   |
 |-----------------------------------|----------------------------------------|-----------------------------------------|
@@ -911,529 +882,6 @@ api.interceptors.response.use(
   }
 );
 ```
-
-### Creating object in JS
-- Using Object Literal
-```javascript
-const person = {
-  name: "John",
-  age: 30,
-  greet: function () {
-    console.log(`Hello, my name is ${this.name}`);
-  }
-};
-console.log(person.name); // Output: John
-person.greet();           // Output: Hello, my name is John
-```
--  Using Object.create()
-```javascript
-const prototypeObject = {
-  greet: function () {
-    console.log(`Hello, my name is ${this.name}`);
-  }
-};
-const person = Object.create(prototypeObject);
-person.name = "Jane";
-person.age = 25;
-person.greet(); // Output: Hello, my name is Jane
-```
-- Using a Constructor Function
-```javascript
-function Person(name, age) {
-  this.name = name;
-  this.age = age;
-  this.greet = function () {
-    console.log(`Hello, my name is ${this.name}`);
-  };
-}
-const person1 = new Person("Alice", 28);
-const person2 = new Person("Bob", 35);
-person1.greet(); // Output: Hello, my name is Alice
-person2.greet(); // Output: Hello, my name is Bob
-```
-- Using ES6 Classes
-```javascript
-class Person {
-  constructor(name, age) {
-    this.name = name;
-    this.age = age;
-  }
-  greet() {
-    console.log(`Hello, my name is ${this.name}`);
-  }
-}
-const person1 = new Person("Charlie", 40);
-const person2 = new Person("Diana", 32);
-person1.greet(); // Output: Hello, my name is Charlie
-person2.greet(); // Output: Hello, my name is Diana
-```
-- Using Object Constructor
-```javascript
-const person = new Object();
-person.name = "Eve";
-person.age = 22;
-person.greet = function () {
-  console.log(`Hello, my name is ${this.name}`);
-};
-console.log(person.name); // Output: Eve
-person.greet();           // Output: Hello, my name is Eve
-```
-- Using JSON.parse
-```javascript
-const person = JSON.parse('{"name": "Hank", "age": 20}');
-console.log(person.name); // Output: Hank
-console.log(person.age);  // Output: 20
-```
-### Set v/s Weak Set
-- ***Set***:
-    A Set ensures that all values are unique. If you try to add a duplicate value, it will be ignored.
-```javascript
-const mySet = new Set();
-mySet.add(1);
-mySet.add(2);
-console.log(mySet.has(1)); // true
-mySet.delete(2);
-console.log(mySet.size); // 1
-mySet.clear(); //delete all items
-```
-- ***Weak set***:A WeakSet can only store objects (not primitive values).
-```javascript
-const weakSet = new WeakSet();
-const obj1 = { name: "Bob" };
-const obj2 = { name: "Eve" };
-weakSet.add(obj1);
-console.log(weakSet.has(obj1)); // true
-weakSet.delete(obj1);
-console.log(weakSet.has(obj1)); // false
-```
-
-### Set vs Array
-- ***Set***:
-1. A Set only stores unique values. Duplicate values are automatically ignored.
-2. Use the size property to get the number of elements in a Set.
-3. No concept of index; you cannot access elements by index in a Set.
-- ***Array***:
-1. An Array can store duplicate values.
-2. Use the length property to get the number of elements in an Array.
-3. Elements can be accessed by their index (e.g., arr[0]).
-
-| **Feature**       | **Rest Operator (`...`)**                    | **Spread Operator (`...`)**                 |
-|--------------------|---------------------------------------------|---------------------------------------------|
-| **Purpose**        | Combines items into a single collection.    | Expands items into individual elements.     |
-| **Use Case**       | Function parameters, destructuring.         | Function calls, array/object literals.      |
-| **Primary Context**| `function fn(...args) {}`                   | `const newArr = [...oldArr];`               |
-| **Key Behavior**   | Gathers remaining values into an array or object. | Spreads values from arrays or objects.      |
-| **Example: Function Parameters** | `function sum(...nums) {}`             | `Math.max(...nums);`                        |
-| **Example: Array Destructuring** | `[first, ...rest] = [1, 2, 3];`        | `const combined = [...arr1, ...arr2];`      |
-| **Example: Object** | Not applicable.                             | `const clone = { ...original };`            |
-
-### Primitive Types: Pass-by-Value
-When you pass a primitive type (e.g., string, number, boolean, etc.) to a function, JavaScript passes a copy of the value. Changes made to the parameter inside the function do not affect the original variable.
-```javascript
-let x = 10;
-function modifyValue(y) {
-  y = 20; // This changes the copy of x, not the original x
-}
-modifyValue(x);
-console.log(x); // Output: 10 (x is unchanged)
-```
-### Non-Primitive Types: Pass-by-Reference-Like Behavior
-For objects, arrays, and functions (non-primitive types), JavaScript passes a reference to the value in memory. This means the function gets access to the same object in memory, so modifying the object inside the function affects the original object.
-However, if you reassign the parameter to a new object, the original object remains unchanged because the parameter now points to a new reference.
-
-```javascript
-let obj = { name: "John" };
-function modifyObject(o) {
-  o.name = "Doe"; // Modifies the original object
-}
-modifyObject(obj);
-console.log(obj.name); // Output: "Doe" (the original object is changed)
-```
-
-## TypeScript
-**Utility Types in TypeScript**
-TypeScript provides utility types to modify existing types in a reusable way. 
-- Partial<T> – Makes All Properties Optional
-```typescript
-type User = {
-  id: number;
-  name: string;
-  email: string;
-};
-type PartialUser = Partial<User>;
-```
-- Required<T> – Makes All Properties Required
-```typescript
-type OptionalUser = {
-  id?: number;
-  name?: string;
-  email?: string;
-};
-
-type RequiredUser = Required<OptionalUser>;
-```
-
-- Readonly<T> – Makes All Properties Read-Only
-```typescript
-type ReadonlyUser = Readonly<User>;
-// Equivalent to:
-type ReadonlyUser = {
-  readonly id: number;
-  readonly name: string;
-  readonly email: string;
-};
-```
-- Record<K, T> – Creates an Object Type with Fixed Keys
-```typescript
-type UserRoles = Record<"admin" | "editor" | "viewer", boolean>;
-// Equivalent to:
-type UserRoles = {
-  admin: boolean;
-  editor: boolean;
-  viewer: boolean;
-};
-```
-- Pick<T, K> – Selects Specific Properties
-```typescript
-type UserPreview = Pick<User, "id" | "name">;
-// Equivalent to:
-type UserPreview = {
-  id: number;
-  name: string;
-};
-```
-- Omit<T, K> – Removes Specific Properties
-```typescript
-type UserWithoutEmail = Omit<User, "email">;
-// Equivalent to:
-type UserWithoutEmail = {
-  id: number;
-  name: string;
-};
-```
-- Exclude<T, U> – Removes Union Members
-```typescript
-type Status = "active" | "inactive" | "banned";
-type ActiveStatus = Exclude<Status, "banned">;
-// Equivalent to:
-type ActiveStatus = "active" | "inactive";
-```
-
-### Interface vs. Type
-- **Interface**: In TypeScript, an interface is a structure that defines the shape of an object. It allows you to specify the types of properties and methods that an object should have, without providing the actual implementation.
-```typescript
-interface User {
-  id: number;
-  name: string;
-  email: string;
-  description?: string; // Optional property
-}
-//Usage
-const user: User = {
-  id: 1,
-  name: "John Doe",
-  email: "john.doe@example.com",
-};
-console.log(user.name); // John Doe
-```
-- **Type**: More versatile, can define primitives, unions, intersections, tuples.
-
-### Differences Between Interfaces and Types
-- Interfaces can be extended using extends, while types use intersection (&)
-```typescript
-//Interface
-interface Person {
-  name: string;
-  age: number;
-}
-interface Employee extends Person {
-  employeeId: number;
-}
-const employee: Employee = {
-  name: "Alice",
-  age: 25,
-  employeeId: 101,
-};
-console.log(employee); // { name: 'Alice', age: 25, employeeId: 101 }
-```
-```typescript
-type Person = {
-  name: string;
-  age: number;
-};
-type Employee = Person & {
-  employeeId: number;
-};
-const employee: Employee = {
-  name: "Bob",
-  age: 30,
-  employeeId: 102,
-};
-console.log(employee); // { name: 'Bob', age: 30, employeeId: 102 }
-```
-- Interfaces allow declaration merging (multiple declarations of the same interface are merged automatically), but types do not.
-```typescript
-//Interface
-interface User {
-  id: number;
-}
-interface User {
-  name: string;
-}
-const user: User = {
-  id: 1,
-  name: "Charlie",
-};
-console.log(user); // { id: 1, name: 'Charlie' }
-```
-```typescript
-//Type
-type User = {
-  id: number;
-};
-// Error: Duplicate identifier 'User'.
-// type User = {
-//   name: string;
-// };
-```
-- type can be used for unions, tuples, and primitives, whereas interface is specifically for defining object shapes.
-```typescript
-//Type
-type Status = "active" | "inactive" | "pending"; //Union types with multiple values
-const currentStatus: Status = "active";
-type Point = [number, number];
-const coordinates: Point = [10, 20]; //A Tuple is a fixed-size array where each element has a specific type. Unlike regular arrays, tuples define the type of each element at specific positions.
-console.log(currentStatus); // active
-console.log(coordinates);   // [10, 20]
-```
-
-### Getter & Setter methods in TS
-```typescript
-class Person {
-  private _name: string = "";
-  // Getter
-  get name(): string {
-    return this._name;
-  }
-  // Setter
-  set name(newName: string) {
-    this._name = newName;
-  }
-}
-const person = new Person();
-person.name = "Alice"; // Calls the setter
-console.log(person.name); // Calls the getter -> "Alice"
-// person.name = "Al"; // Error: Name must be at least 3 characters long
-```
-### How to implement class constants in TypeScript?
-In TypeScript, you can implement class constants by using the static keyword. Static properties or constants belong to the class itself rather than to an instance of the class.
-```typescript
-class MathConstants {
-  static readonly PI = 3.14159; // Class constant
-  static readonly E = 2.71828;  // Class constant
-
-  static getPiSquared(): number {
-    return this.PI * this.PI; // Access static constant within the class
-  }
-}
-// Accessing constants
-console.log(MathConstants.PI); // 3.14159
-console.log(MathConstants.E);  // 2.71828
-// Using the static method
-console.log(MathConstants.getPiSquared()); // 9.869587728099999
-```
-### TypeScript Benefits in React Native
-- Static typing reduces runtime errors.
-- Refactoring is safer and consistent.
-- Enhanced autocompletion and documentation support in IDEs.
-
-### What is the difference between any, unknown, and never types in TypeScript?
-- **any**: The any type is the most permissive type in TypeScript. It effectively disables type checking, allowing any value to be assigned to a variable, and it can be used anywhere.
-- **unknown**: The unknown type is a safer alternative to any. While unknown can hold any type of value (like any), it requires explicit type checking**(type narrowing)** before performing operations on the value. This ensures that you validate the type before interacting with it.
-```typescript
-let value: unknown = 42;
-value = "string"; // No error, can change type freely
-
-if (typeof value === "string") {
-  console.log(value.toUpperCase()); // No error, because the type is checked
-} else {
-  console.log(value.toUpperCase()); // Error: Property 'toUpperCase' does not exist on type 'unknown'
-}
-```
-- **never**: he never type represents a value that never occurs. It is used for functions that will never return a value (e.g., functions that throw an error or enter an infinite loop).
-```typescript
-function throwError(message: string): never {
-  throw new Error(message); // This function never returns
-}
-
-function infiniteLoop(): never {
-  while (true) {} // Infinite loop, never ends
-}
-```
-### How do you define and use enums in TypeScript?
-- Enums (enumerations) in TypeScript are a way to define a set of named constants. They make code more readable and help avoid using magic numbers or hardcoded string values.
-```typescript
-enum Direction {
-  Up,    // 0
-  Down,  // 1
-  Left,  // 2
-  Right  // 3
-}
-let move: Direction = Direction.Up;
-console.log(move);  // Output: 0
-```
-### readonly in ts
-- In TypeScript, the readonly modifier is used to mark properties of objects or array elements as immutable, meaning their values cannot be changed after they are initialized.
-```typescript
-interface Person {
-  readonly name: string;
-  readonly age: number;
-}
-
-const person: Person = { name: "John", age: 30 };
-
-// Trying to modify the readonly properties will result in a compile-time error
-person.name = "Alice";  // Error: Cannot assign to 'name' because it is a read-only property.
-person.age = 35;        // Error: Cannot assign to 'age' because it is a read-only property.
-```
-### How can you make all properties of an interface optional?
-```typescript
-interface Person {
-  name: string;
-  age: number;
-  address: string;
-}
-
-const person: Partial<Person> = {
-  name: "John" // Only one property is required
-};
-```
-### What is the as keyword used for in TypeScript?
-- The as keyword in TypeScript is used for type assertions. It allows you to tell the TypeScript compiler to treat a value as a specific type, overriding its inferred or declared type.
-```typescript
-let someValue: any = "Hello, TypeScript!";
-// Assert that `someValue` is a string
-let strLength: number = (someValue as string).length;
-console.log(strLength);  // Output: 18
-```
-
-### What are intersection types, and how do they differ from inheritance?
-- An intersection type in TypeScript allows you to combine multiple types into one. A value of an intersection type will have all the properties and methods of each of the types involved in the intersection. It’s like saying “a value must satisfy all of these types.”
-```typescript
-interface Person {
-  name: string;
-  age: number;
-}
-
-interface Employee {
-  jobTitle: string;
-  company: string;
-}
-
-type EmployeeWithDetails = Person & Employee;
-
-const employee: EmployeeWithDetails = {
-  name: "Alice",
-  age: 30,
-  jobTitle: "Software Developer",
-  company: "Tech Corp",
-};
-```
-| **Aspect**                 | **Intersection Types**                            | **Inheritance**                                    |
-|----------------------------|---------------------------------------------------|---------------------------------------------------|
-| **Purpose**                 | Combine multiple types into one type.            | Create a hierarchical relationship between classes or interfaces. |
-| **Usage**                   | Used for combining the properties of different types. | Used to create subclasses that inherit properties and methods from a superclass. |
-| **Composition**             | A type has **all** properties from multiple types. | A subclass inherits properties and methods from a superclass. |
-| **Type System**             | Works at the type level, doesn't require classes. | Works with classes and objects, creating a class hierarchy. |
-| **Relationship**            | No hierarchical relationship.                    | Models an "is-a" relationship (e.g., `Dog` is an `Animal`). |
-| **Flexibility**             | Can combine any types, including objects, interfaces, and even primitives. | Tightly coupled with object-oriented programming and class structures. |
-
-### What is a function overload in TypeScript, and how does it work?
-```typescript
-// Overload signatures
-function calculate(a: number, b: number): number;
-function calculate(a: string, b: string): string;
-// Implementation signature
-function calculate(a: number | string, b: number | string): number | string {
-  if (typeof a === "number" && typeof b === "number") {
-    return a + b;  // If both are numbers, return sum
-  } else if (typeof a === "string" && typeof b === "string") {
-    return a + " " + b;  // If both are strings, return concatenation
-  }
-  throw new Error("Invalid arguments");
-}
-console.log(calculate(5, 10));        // Output: 15
-console.log(calculate("Hello", "World")); // Output: "Hello World"
-```
-### What is type narrowing, and how is it done in TypeScript?
-Type narrowing in TypeScript is the process of refining the type of a variable within a specific scope or block of code
-- Using typeof Operator
-- Using instanceof Operator
-```typescript
-function printValue(value: string | number | boolean) {
-  if (typeof value === "string") {
-    // Narrowed to string
-    console.log(`String value: ${value.toUpperCase()}`);
-  } else if (typeof value === "number") {
-    // Narrowed to number
-    console.log(`Number value: ${value + 10}`);
-  } else {
-    // Narrowed to boolean
-    console.log(`Boolean value: ${value ? "True" : "False"}`);
-  }
-}
-// Test cases
-printValue("hello"); // String value: HELLO
-printValue(42);      // Number value: 52
-printValue(true);    // Boolean value: True
-```
-
-## Event Propagation: Bubbling vs. Capturing
-Event propagation is the mechanism that determines how events flow through the DOM (Document Object Model) when an event occurs. It consists of three phases
-Capturing Phase > Target Phase > Bubbling Phase
-
-| Feature               | **Event Bubbling**                                   | **Event Capturing**                              |
-|-----------------------|-----------------------------------------------------|-------------------------------------------------|
-| **Definition**        | Event propagates from the target element upwards to its ancestors. | Event propagates from the root element down to the target element. |
-| **Direction**         | Target → Parent → Ancestors → Document               | Document → Ancestors → Parent → Target          |
-| **Default Behavior**  | Enabled by default for event listeners.              | Must explicitly enable by passing `true` as the third parameter in `addEventListener`. |
-| **Use Case**          | Commonly used for event delegation, handling child events in the parent. | Useful when you need to intercept events before they reach the target. |
-| **Stopping Propagation** | Use `event.stopPropagation()` to stop bubbling.    | Use `event.stopPropagation()` to stop capturing. |
-
-### Example Code for Event Propagation
-
-```javascript
-// Event Bubbling (Default)
-document.getElementById('child').addEventListener('click', () => {
-    console.log('Child clicked!');
-});
-document.getElementById('parent').addEventListener('click', () => {
-    console.log('Parent clicked!');
-});
-
-// Event Capturing
-document.getElementById('child').addEventListener('click', () => {
-    console.log('Child clicked during capturing!');
-}, true); // 'true' enables capturing phase
-document.getElementById('parent').addEventListener('click', () => {
-    console.log('Parent clicked during capturing!');
-}, true);
-```
-### Function Composition
-Function Composition is the process of combining two or more functions to produce a new function or perform a series of operations. It allows you to build complex operations by combining simpler ones.
-- Functions are executed from right to left (similar to mathematical composition).
-```javascript
-const add = (x) => x + 2;
-const multiply = (x) => x * 3;
-// Compose two functions
-const compose = (f, g) => {
-  return (x) => {
-    return f(g(x));
-  };
-};
-const addThenMultiply = compose(multiply, add);
-console.log(addThenMultiply(5)); // (5 + 2) * 3 = 21
-```
 ### Overriding hooks
 ```javascript
 import { useState } from "react";
@@ -1470,142 +918,6 @@ function Counter() {
 - Model: Manages the data and business logic.
 - View: Represents the UI and displays the data from the Model.
 - Controller: Handles user input, processes it, and updates the Model and/or View.
-
-### Array vs Tuple
-# TypeScript: Tuples vs Arrays
-
-| Feature          | Tuple                                        | Array                                        |
-|------------------|----------------------------------------------|----------------------------------------------|
-| **Length**       | Fixed length (predefined)                   | Variable length (dynamic size)               |
-| **Element Type** | Can contain different types (heterogeneous)  | All elements must be of the same type (homogeneous) |
-| **Access**       | Elements are accessed by index, types are enforced | Elements are accessed by index, types are the same |
-| **Use Case**     | Used for fixed structures with mixed types, like records or key-value pairs | Used for collections of similar data (e.g., numbers, strings) |
-| **Mutability**   | Elements can be reassigned, but the number of elements is fixed | Elements and size can be modified |
-| **Syntax**       | `[type1, type2, ...]`                        | `type[]`                                     |
-
-## Examples
-
-### Tuple Example
-```typescript
-let person: [string, number] = ['John', 25];
-// Correct usage
-let coordinates: [number, number] = [40.7128, 74.0060];
-// Incorrect usage: will throw an error
-person = [30, 'Jane']; // Error: Type 'number' is not assignable to type 'string'
-```
-### How does TypeScript handle enums?
-TypeScript handles enums by providing a way to define a set of named constants. Enums are a special type in TypeScript that allows you to assign names to numeric or string values.
-```typescript
-enum CommonExample {
-  Up = 1,
-  Active = 'ACTIVE',
-  Left,
-  Right
-}
-console.log(CommonExample.Up); // 1
-console.log(CommonExample.Active); // "ACTIVE"
-console.log(CommonExample.Left); // 2
-console.log(CommonExample.Right); // 3
-```
-
-### Scenarios
-- JS Thread blocking
-**App Startup:**
-
-The app initializes and renders the FlatList with the initial dataset (data state with 20 items).
-The FlatList is responsive and scrolls smoothly because both the UI thread and JavaScript thread are working as expected.
-
-**Pressing the "Block JS Thread" Button:**
-
-When the "Block JS Thread" button is pressed, the blockJavaScriptThread function runs a synchronous while loop that blocks the JavaScript thread for 3 seconds.
-
-*Key Issue:*
-The JavaScript thread is now completely occupied by the while loop and cannot process any other tasks (e.g., handling state updates, triggering callbacks, or sending instructions to the UI thread).
-
-**Attempting to Scroll the FlatList During Blocking:**
-
-The UI thread detects the scroll gesture, but it needs to interact with the JavaScript thread to:
-Process the scroll event logic.
-Trigger the onEndReached callback to load more data when the user scrolls near the end of the list.
-
-*Problem:*
-
-Since the JavaScript thread is busy with the blockJavaScriptThread function:
-The FlatList's scroll gestures are delayed or freeze entirely.
-The onEndReached callback cannot execute, so no new data is fetched.
-
-**Impact on UI Updates:**
-
-While the JavaScript thread is blocked, it cannot:
-Process state updates (e.g., setLoading(true) in loadMoreData).
-Send updates to the UI thread to render new items.
-As a result, the app becomes unresponsive until the blocking operation is completed.
-
-**JavaScript Thread is Freed After Blocking:**
-
-Once the while loop in blockJavaScriptThread completes, the JavaScript thread becomes free to handle other tasks.
-At this point:
-Any pending scroll gestures or onEndReached events are processed.
-The app returns to normal responsiveness.
-
-**Triggering onEndReached to Load More Data:**
-
-If the user scrolls again after the JavaScript thread is unblocked, the onEndReached callback is triggered.
-New data is fetched, and the FlatList updates its state and renders the additional items.
-
-# Understanding Time Complexity in JavaScript
-### Constant Time - O(1)
-The operation does not depend on the input size.
-```javascript
-function getFirstElement(arr) {
-  return arr[0]; // Executes in constant time
-}
-```
-
-### Linear Time – O(n)
-The execution time grows directly proportional to the input size.
-```javascript
-function printArray(arr) {
-  for (let i = 0; i < arr.length; i++) {
-    console.log(arr[i]); // Executes once for each element
-  }
-}
-```
-
-### Quadratic Time – O(n²)
-Nested loops result in n * n iterations.
-```javascript
-function printPairs(arr) {
-  for (let i = 0; i < arr.length; i++) {
-    for (let j = 0; j < arr.length; j++) {
-      console.log(arr[i], arr[j]); // Executes n * n times
-    }
-  }
-}
-```
-
-### Logarithmic Time – O(log n)
-The search space is halved with each iteration.
-```javascript
-function binarySearch(arr, target) {
-  let start = 0, end = arr.length - 1;
-  while (start <= end) {
-    let mid = Math.floor((start + end) / 2);
-    if (arr[mid] === target) return mid;
-    if (arr[mid] < target) start = mid + 1;
-    else end = mid - 1;
-  }
-  return -1;
-}
-```
-### Exponential Time – O(2ⁿ)
-The execution time doubles with each additional input.
-```javascript
-function fibonacci(n) {
-  if (n <= 1) return n;
-  return fibonacci(n - 1) + fibonacci(n - 2); // Recursively calls itself twice
-}
-```
 
 ### Graph QL
 **Graph Q: v/s REST**
@@ -1772,7 +1084,6 @@ const USER_ADDED = gql`
   }
 `;
 ```
-
 ### Use of Xcode in RN development
 - iOS Build & Compilation: Compiles your React Native code into an iOS app.
 - Simulator: Runs and tests your app on iOS devices.
@@ -1874,7 +1185,473 @@ socket.off('disconnect', "SAME_FN_AS_DISCONNECT");
 socket.on('customName',()=>{"REMOVE_LISTNER"})
 ```
 
-### Sample fetch
+### InteractionManager (React Native)
+Used for managing animations or high-priority UI tasks.
+
+```javascript
+InteractionManager.runAfterInteractions(() => {
+    console.log('Heavy computation starts');
+    const fetchedData = Array.from({ length: 100000 }, (_, i) => i + 1);
+    setData(fetchedData);
+    setLoading(false);
+    console.log('Heavy computation ends');
+});
+```
+# Typescript Questions
+### Generic Function Example (TypeScript)
+In TypeScript, generic functions allow you to write functions that can work with any type, while still enforcing type safety. Generics are a powerful feature to make your code reusable and flexible.
+```typescript
+function identity<T>(value: T): T {
+    return value;
+}
+const numberValue = identity<number>(42);
+const stringValue = identity<string>("Hello, Generics!");
+```
+### Basic Sum Function in TypeScript
+```javascript
+function sum(a: string | number, b: string | number): number {
+  // Convert both parameters to numbers if they are strings
+  const num1 = typeof a === 'string' ? parseFloat(a) : a;
+  const num2 = typeof b === 'string' ? parseFloat(b) : b;
+  return num1 + num2;
+}
+```
+### Set v/s Weak Set
+- ***Set***:
+    A Set ensures that all values are unique. If you try to add a duplicate value, it will be ignored.
+```javascript
+const mySet = new Set();
+mySet.add(1);
+mySet.add(2);
+console.log(mySet.has(1)); // true
+mySet.delete(2);
+console.log(mySet.size); // 1
+mySet.clear(); //delete all items
+```
+- ***Weak set***:A WeakSet can only store objects (not primitive values).
+```javascript
+const weakSet = new WeakSet();
+const obj1 = { name: "Bob" };
+const obj2 = { name: "Eve" };
+weakSet.add(obj1);
+console.log(weakSet.has(obj1)); // true
+weakSet.delete(obj1);
+console.log(weakSet.has(obj1)); // false
+```
+
+### Set vs Array
+***Set***:
+- A Set only stores unique values. Duplicate values are automatically ignored.
+- Use the size property to get the number of elements in a Set.
+- No concept of index; you cannot access elements by index in a Set.
+***Array***:
+- An Array can store duplicate values.
+- Use the length property to get the number of elements in an Array.
+- Elements can be accessed by their index (e.g., arr[0]).
+
+| **Feature**       | **Rest Operator (`...`)**                    | **Spread Operator (`...`)**                 |
+|--------------------|---------------------------------------------|---------------------------------------------|
+| **Purpose**        | Combines items into a single collection.    | Expands items into individual elements.     |
+| **Use Case**       | Function parameters, destructuring.         | Function calls, array/object literals.      |
+| **Primary Context**| `function fn(...args) {}`                   | `const newArr = [...oldArr];`               |
+| **Key Behavior**   | Gathers remaining values into an array or object. | Spreads values from arrays or objects.      |
+| **Example: Function Parameters** | `function sum(...nums) {}`             | `Math.max(...nums);`                        |
+| **Example: Array Destructuring** | `[first, ...rest] = [1, 2, 3];`        | `const combined = [...arr1, ...arr2];`      |
+| **Example: Object** | Not applicable.                             | `const clone = { ...original };`            |
+
+### Utility Types in TypeScript
+TypeScript provides utility types to modify existing types in a reusable way. 
+- Partial<T> – Makes All Properties Optional
+```typescript
+type User = {
+  id: number;
+  name: string;
+  email: string;
+};
+type PartialUser = Partial<User>;
+```
+- Required<T> – Makes All Properties Required
+```typescript
+type OptionalUser = {
+  id?: number;
+  name?: string;
+  email?: string;
+};
+
+type RequiredUser = Required<OptionalUser>;
+```
+
+- Readonly<T> – Makes All Properties Read-Only
+```typescript
+type ReadonlyUser = Readonly<User>;
+// Equivalent to:
+type ReadonlyUser = {
+  readonly id: number;
+  readonly name: string;
+  readonly email: string;
+};
+```
+- Record<K, T> – Creates an Object Type with Fixed Keys
+```typescript
+type UserRoles = Record<"admin" | "editor" | "viewer", boolean>;
+// Equivalent to:
+type UserRoles = {
+  admin: boolean;
+  editor: boolean;
+  viewer: boolean;
+};
+```
+- Pick<T, K> – Selects Specific Properties
+```typescript
+type UserPreview = Pick<User, "id" | "name">;
+// Equivalent to:
+type UserPreview = {
+  id: number;
+  name: string;
+};
+```
+- Omit<T, K> – Removes Specific Properties
+```typescript
+type UserWithoutEmail = Omit<User, "email">;
+// Equivalent to:
+type UserWithoutEmail = {
+  id: number;
+  name: string;
+};
+```
+- Exclude<T, U> – Removes Union Members
+```typescript
+type Status = "active" | "inactive" | "banned";
+type ActiveStatus = Exclude<Status, "banned">;
+// Equivalent to:
+type ActiveStatus = "active" | "inactive";
+```
+
+### Interface vs. Type
+- **Interface**: In TypeScript, an interface is a structure that defines the shape of an object. It allows you to specify the types of properties and methods that an object should have, without providing the actual implementation.
+```typescript
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  description?: string; // Optional property
+}
+//Usage
+const user: User = {
+  id: 1,
+  name: "John Doe",
+  email: "john.doe@example.com",
+};
+console.log(user.name); // John Doe
+```
+- **Type**: More versatile, can define primitives, unions, intersections, tuples.
+
+### Differences Between Interfaces and Types
+- Interfaces can be extended using extends, while types use intersection (&)
+```typescript
+//Interface
+interface Person {
+  name: string;
+  age: number;
+}
+interface Employee extends Person {
+  employeeId: number;
+}
+const employee: Employee = {
+  name: "Alice",
+  age: 25,
+  employeeId: 101,
+};
+console.log(employee); // { name: 'Alice', age: 25, employeeId: 101 }
+```
+```typescript
+type Person = {
+  name: string;
+  age: number;
+};
+type Employee = Person & {
+  employeeId: number;
+};
+const employee: Employee = {
+  name: "Bob",
+  age: 30,
+  employeeId: 102,
+};
+console.log(employee); // { name: 'Bob', age: 30, employeeId: 102 }
+```
+- Interfaces allow declaration merging (multiple declarations of the same interface are merged automatically), but types do not.
+```typescript
+//Interface
+interface User {
+  id: number;
+}
+interface User {
+  name: string;
+}
+const user: User = {
+  id: 1,
+  name: "Charlie",
+};
+console.log(user); // { id: 1, name: 'Charlie' }
+```
+```typescript
+//Type
+type User = {
+  id: number;
+};
+// Error: Duplicate identifier 'User'.
+// type User = {
+//   name: string;
+// };
+```
+- type can be used for unions, tuples, and primitives, whereas interface is specifically for defining object shapes.
+```typescript
+//Type
+type Status = "active" | "inactive" | "pending"; //Union types with multiple values
+const currentStatus: Status = "active";
+type Point = [number, number];
+const coordinates: Point = [10, 20]; //A Tuple is a fixed-size array where each element has a specific type. Unlike regular arrays, tuples define the type of each element at specific positions.
+console.log(currentStatus); // active
+console.log(coordinates);   // [10, 20]
+```
+
+### What is the difference between any, unknown, and never types in TypeScript?
+- **any**: The any type is the most permissive type in TypeScript. It effectively disables type checking, allowing any value to be assigned to a variable, and it can be used anywhere.
+- **unknown**: The unknown type is a safer alternative to any. While unknown can hold any type of value (like any), it requires explicit type checking**(type narrowing)** before performing operations on the value. This ensures that you validate the type before interacting with it.
+```typescript
+let value: unknown = 42;
+value = "string"; // No error, can change type freely
+
+if (typeof value === "string") {
+  console.log(value.toUpperCase()); // No error, because the type is checked
+} else {
+  console.log(value.toUpperCase()); // Error: Property 'toUpperCase' does not exist on type 'unknown'
+}
+```
+- **never**: he never type represents a value that never occurs. It is used for functions that will never return a value (e.g., functions that throw an error or enter an infinite loop).
+```typescript
+function throwError(message: string): never {
+  throw new Error(message); // This function never returns
+}
+
+function infiniteLoop(): never {
+  while (true) {} // Infinite loop, never ends
+}
+```
+### How do you define and use enums in TypeScript?
+- Enums (enumerations) in TypeScript are a way to define a set of named constants. They make code more readable and help avoid using magic numbers or hardcoded string values.
+```typescript
+enum Direction {
+  Up,    // 0
+  Down,  // 1
+  Left,  // 2
+  Right  // 3
+}
+let move: Direction = Direction.Up;
+console.log(move);  // Output: 0
+```
+### What is the as keyword used for in TypeScript?
+- The as keyword in TypeScript is used for type assertions. It allows you to tell the TypeScript compiler to treat a value as a specific type, overriding its inferred or declared type.
+```typescript
+let someValue: any = "Hello, TypeScript!";
+// Assert that `someValue` is a string
+let strLength: number = (someValue as string).length;
+console.log(strLength);  // Output: 18
+```
+
+### What are intersection types, and how do they differ from inheritance?
+- An intersection type in TypeScript allows you to combine multiple types into one. A value of an intersection type will have all the properties and methods of each of the types involved in the intersection. It’s like saying “a value must satisfy all of these types.”
+```typescript
+interface Person {
+  name: string;
+  age: number;
+}
+
+interface Employee {
+  jobTitle: string;
+  company: string;
+}
+
+type EmployeeWithDetails = Person & Employee;
+
+const employee: EmployeeWithDetails = {
+  name: "Alice",
+  age: 30,
+  jobTitle: "Software Developer",
+  company: "Tech Corp",
+};
+```
+| **Aspect**                 | **Intersection Types**                            | **Inheritance**                                    |
+|----------------------------|---------------------------------------------------|---------------------------------------------------|
+| **Purpose**                 | Combine multiple types into one type.            | Create a hierarchical relationship between classes or interfaces. |
+| **Usage**                   | Used for combining the properties of different types. | Used to create subclasses that inherit properties and methods from a superclass. |
+| **Composition**             | A type has **all** properties from multiple types. | A subclass inherits properties and methods from a superclass. |
+| **Type System**             | Works at the type level, doesn't require classes. | Works with classes and objects, creating a class hierarchy. |
+| **Relationship**            | No hierarchical relationship.                    | Models an "is-a" relationship (e.g., `Dog` is an `Animal`). |
+| **Flexibility**             | Can combine any types, including objects, interfaces, and even primitives. | Tightly coupled with object-oriented programming and class structures. |
+
+### What is a function overload in TypeScript, and how does it work?
+```typescript
+// Overload signatures
+function calculate(a: number, b: number): number;
+function calculate(a: string, b: string): string;
+// Implementation signature
+function calculate(a: number | string, b: number | string): number | string {
+  if (typeof a === "number" && typeof b === "number") {
+    return a + b;  // If both are numbers, return sum
+  } else if (typeof a === "string" && typeof b === "string") {
+    return a + " " + b;  // If both are strings, return concatenation
+  }
+  throw new Error("Invalid arguments");
+}
+console.log(calculate(5, 10));        // Output: 15
+console.log(calculate("Hello", "World")); // Output: "Hello World"
+```
+### What is type narrowing, and how is it done in TypeScript?
+Type narrowing in TypeScript is the process of refining the type of a variable within a specific scope or block of code
+- Using typeof Operator
+- Using instanceof Operator
+```typescript
+function printValue(value: string | number | boolean) {
+  if (typeof value === "string") {
+    // Narrowed to string
+    console.log(`String value: ${value.toUpperCase()}`);
+  } else if (typeof value === "number") {
+    // Narrowed to number
+    console.log(`Number value: ${value + 10}`);
+  } else {
+    // Narrowed to boolean
+    console.log(`Boolean value: ${value ? "True" : "False"}`);
+  }
+}
+// Test cases
+printValue("hello"); // String value: HELLO
+printValue(42);      // Number value: 52
+printValue(true);    // Boolean value: True
+```
+### Array vs Tuple
+# TypeScript: Tuples vs Arrays
+
+| Feature          | Tuple                                        | Array                                        |
+|------------------|----------------------------------------------|----------------------------------------------|
+| **Length**       | Fixed length (predefined)                   | Variable length (dynamic size)               |
+| **Element Type** | Can contain different types (heterogeneous)  | All elements must be of the same type (homogeneous) |
+| **Access**       | Elements are accessed by index, types are enforced | Elements are accessed by index, types are the same |
+| **Use Case**     | Used for fixed structures with mixed types, like records or key-value pairs | Used for collections of similar data (e.g., numbers, strings) |
+| **Mutability**   | Elements can be reassigned, but the number of elements is fixed | Elements and size can be modified |
+| **Syntax**       | `[type1, type2, ...]`                        | `type[]`                                     |
+
+### Tuple Example
+```typescript
+let person: [string, number] = ['John', 25];
+// Correct usage
+let coordinates: [number, number] = [40.7128, 74.0060];
+// Incorrect usage: will throw an error
+person = [30, 'Jane']; // Error: Type 'number' is not assignable to type 'string'
+```
+
+
+# Testing with JEST
+### Key Testing Types (Jest)
+- Unit testing is a software testing technique that involves testing individual components or functions of an application in isolation to ensure they behave as expected.
+```javascript
+// utils/calculateSum.js
+export const calculateSum = (a, b) => a + b;
+
+// utils/calculateSum.test.js
+import { calculateSum } from './calculateSum';
+
+test('calculateSum adds numbers correctly', () => {
+  expect(calculateSum(2, 3)).toBe(5);
+});
+```
+
+- Component testing involves testing individual components of a user interface (UI) in isolation to ensure they function correctly.
+```javascript
+// components/Greeting.js
+import React from 'react';
+import { Text, View } from 'react-native';
+
+const Greeting = ({ name }) => (
+  <View>
+    <Text>Hello, {name}!</Text>
+  </View>
+);
+
+export default Greeting;
+```
+
+```javascript
+// components/Greeting.test.js
+import React from 'react';
+import { render } from '@testing-library/react-native';
+import Greeting from './Greeting';
+
+test('renders Greeting component with name', () => {
+  const { getByText } = render(<Greeting name="John" />);
+  expect(getByText('Hello, John!')).toBeTruthy();
+});
+```
+
+- Snapshot testing is a type of testing used to ensure that a component's UI does not change unexpectedly.
+```javascript
+// components/Button.js
+import React from 'react';
+import { Text, TouchableOpacity } from 'react-native';
+
+const Button = ({ label, onPress }) => (
+  <TouchableOpacity onPress={onPress}>
+    <Text>{label}</Text>
+  </TouchableOpacity>
+);
+
+export default Button;
+```
+```javascript
+// components/Button.test.js
+import React from 'react';
+import renderer from 'react-test-renderer';
+import Button from './Button';
+
+test('Button component snapshot', () => {
+  const tree = renderer.create(<Button label="Click me" onPress={() => {}} />).toJSON();
+  expect(tree).toMatchSnapshot();
+});
+```
+
+### Mocking Functions and API Calls
+```javascript
+// components/UserDetails.test.js
+import React from 'react';
+import { render, waitFor } from '@testing-library/react-native';
+import UserDetails from './UserDetails';
+
+jest.mock('./UserDetails', () => ({
+  fetchUser: jest.fn(() => Promise.resolve({ name: 'John Doe' })),
+}));
+
+test('renders user details after fetching data', async () => {
+  const { getByText } = render(<UserDetails />);
+  await waitFor(() => expect(getByText('John Doe')).toBeTruthy());
+});
+```
+### Running test cases with JEST
+- **jest**
+Runs all the test files in your project. By default, Jest looks for files with .test.js or .spec.js extensions in the __tests__ folder or files with these extensions anywhere in your project.
+
+- **jest --watch**
+Watches your files for changes and automatically reruns the tests when a file is saved. Useful during development to get instant feedback on your tests.
+
+- **jest --onlyFailures**
+Reruns only the tests that failed in the previous run. Useful for quickly debugging failures after running the full test suite.
+
+- **jest --coverage**
+Generates a test coverage report, showing which parts of your code are covered by tests. Outputs detailed information about the lines, functions, and branches covered.
+
+- **jest --updateSnapshot**
+Updates Jest snapshots for tests that use snapshot testing. Use this when your component output changes and you’re confident the new output is correct.
+# Coding Questions
+### Sample fetch call
 ```javascript
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/posts")
@@ -1886,8 +1663,7 @@ socket.on('customName',()=>{"REMOVE_LISTNER"})
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 ```
-
-### Code
+### Sample async/await fn
 ```javascript
 const sample = async () => {
     return new Promise((resolve) => {
@@ -1900,21 +1676,29 @@ const sample = async () => {
 let value = await sample();
 console.log(value); // ✅ "TUSHAR" (after 2 seconds)
 ```
-### IBM
-- Maximum storage that html5 provides is **5 MB**
-- **<mark>** is used to hightlight text in HTML
-- In a form, **event.preventDefault()** is commonly used to prevent the form from submitting when the user clicks the submit button or presses Enter.
-- **<span>** is not a semantic element
-- The correct CSS selector that selects all elements of type E that have the attribute attr that ends with a given value is **E[attr$="value"]**
-- The function that converts an element's color to a shade of gray for use by the filter property in CSS is **grayscale()**
-- Which of the following media query describe output style portrait if height is greater than or equal to width, landscape if the opposite? **orientation**
-- The correct syntax to redirect a URL using JavaScript is **window.location.href = 'https://www.example.com';**
+- Second Largest and smallest number in array
+- Bubble sort
+- Binary search 
+- Remove duplicates from an array. 
+- Anagram
+- Palindrome 
+- Combine 2 sorted array into 1 sorted Array
+- Factorial (Recursive/Iterative)
+- Write a program to group an array of objects by a property. 
+- Fibonacci (Recursive/Iterative)
+- Prime or Not
+- Even/Odd
+- Write a function to find the intersection of two arrays.
+- Write a function to find the missing number in an array of consecutive numbers.
+- Given 2 variables let values=“abcd” & let times=23, print values according to times variable ex. aabbbcd
+- Frequency of each letter in a string
 
-### Resource Links
+
+# Resource Links
 https://www.interviewbit.com/javascript-interview-questions/#different-methods-can-you-make-an-object
 https://github.com/lydiahallie/javascript-questions
 
-### Remote Job Companies
+# Remote Job Companies
 1. https://www.linkedin.com/company/aexonic-technologies/posts/?feedView=all
 2. https://www.linkedin.com/company/metafic/
 3. https://www.linkedin.com/company/globallogic/life/e41c9913-a1fc-4b0b-b080-3691f3ff721d/
@@ -1928,7 +1712,7 @@ https://github.com/lydiahallie/javascript-questions
 11. https://www.linkedin.com/company/insight-global/life/c8a8bc97-8798-403c-a1eb-6f80b765f099/
 12. https://www.linkedin.com/company/outsourcedglobal/life/candidates/
 
-### Onsite Job Companies
+# Onsite Job Companies
 1. https://www.linkedin.com/company/kpmg/posts/?feedView=all
 2. https://www.linkedin.com/company/globallogic/life/e41c9913-a1fc-4b0b-b080-3691f3ff721d/
 3. https://www.linkedin.com/company/okta-inc-/life/careers/
@@ -1938,7 +1722,15 @@ https://github.com/lydiahallie/javascript-questions
 7. https://www.linkedin.com/company/metlife/life/
 8. https://www.linkedin.com/company/cxnplio/
 9. https://www.linkedin.com/company/kaplan/
----
 
-This README consolidates foundational and advanced JavaScript and React concepts for developers.
+
+# IBM
+- Maximum storage that html5 provides is **5 MB**
+- **<mark>** is used to hightlight text in HTML
+- In a form, **event.preventDefault()** is commonly used to prevent the form from submitting when the user clicks the submit button or presses Enter.
+- **<span>** is not a semantic element
+- The correct CSS selector that selects all elements of type E that have the attribute attr that ends with a given value is **E[attr$="value"]**
+- The function that converts an element's color to a shade of gray for use by the filter property in CSS is **grayscale()**
+- Which of the following media query describe output style portrait if height is greater than or equal to width, landscape if the opposite? **orientation**
+- The correct syntax to redirect a URL using JavaScript is **window.location.href = 'https://www.example.com';**
 
