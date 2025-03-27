@@ -443,7 +443,7 @@ const compose = (f, g) => {
 const addThenMultiply = compose(multiply, add);
 console.log(addThenMultiply(5)); // (5 + 2) * 3 = 21
 ```
-# Understanding Time Complexity in JavaScript
+### Understanding Time Complexity in JavaScript
 ### Constant Time - O(1)
 The operation does not depend on the input size.
 ```javascript
