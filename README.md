@@ -1689,6 +1689,7 @@ console.log(value); // ✅ "TUSHAR" (after 2 seconds)
 - Write a function to find the missing number in an array of consecutive numbers.
 - Given 2 variables let values=“abcd” & let times=23, print values according to times variable ex. aabbbcd
 - Frequency of each letter in a string
+- Sample fetch request
 
 
 # Resource Links
